@@ -1,0 +1,18 @@
+
+**** Build of configuration Debug for project external fd driver ****
+
+/home/mostafa/ti/ccs1020/ccs/utils/bin/gmake -k -j 8 all -O 
+ 
+Building file: "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/ports/src"  "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
+Finished building: "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
+ 
+Building target: "external fd driver.out"
+Invoking: Arm Linker
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"external fd driver.map" --heap_size=0 --stack_size=512 -i"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/lib" -i"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="external fd driver_linkInfo.xml" --rom_model -o "external fd driver.out" "./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj" "./driver/mcp25xxfd_driver/spi/drv_spi.obj" "./mcp25xxfd_demo_h2_rel/firmware/src/app.obj" "./mcp25xxfd_demo_h2_rel/firmware/src/main.obj" "./mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" "../tm4c123gh6pm.cmd"  -llibc.a 
+<Linking>
+Finished building target: "external fd driver.out"
+ 
+
+**** Build Finished ****
