@@ -131,7 +131,7 @@ const uint16_t crc16_table[256] = {
 // *****************************************************************************
 // Section: Reset
 
-int8_t DRV_CANFDSPI_Reset(CANFDSPI_MODULE_ID index)
+int8_t DRV_CANFDSPI_Reset(void )
 {
     uint16_t spiTransferSize = 2;
     int8_t spiTransferError = 0;
@@ -140,7 +140,13 @@ int8_t DRV_CANFDSPI_Reset(CANFDSPI_MODULE_ID index)
     spiTransmitBuffer[0] = (uint8_t) (cINSTRUCTION_RESET << 4);
     spiTransmitBuffer[1] = 0;
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(spiTransmitBuffer[0]);
+    spi_send(spiTransmitBuffer[1]);
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+
+
+    //spiTransferError = DRV_SPI_TransferData( spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     return spiTransferError;
 }
@@ -150,7 +156,7 @@ int8_t DRV_CANFDSPI_Reset(CANFDSPI_MODULE_ID index)
 // *****************************************************************************
 // Section: SPI Access Functions
 
-int8_t DRV_CANFDSPI_ReadByte(CANFDSPI_MODULE_ID index, uint16_t address, uint8_t *rxd)
+int8_t DRV_CANFDSPI_ReadByte( uint16_t address, uint8_t *rxd)
 {
     uint16_t spiTransferSize = 3;
     int8_t spiTransferError = 0;
@@ -160,15 +166,17 @@ int8_t DRV_CANFDSPI_ReadByte(CANFDSPI_MODULE_ID index, uint16_t address, uint8_t
     spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
     spiTransmitBuffer[2] = 0;
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     // Update data
-    *rxd = spiReceiveBuffer[2];
+    uint8_t byte =0;
+    SPI_Read_Data_Byte(spiTransmitBuffer , byte)
+    *rxd = byte;
 
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_WriteByte(CANFDSPI_MODULE_ID index, uint16_t address, uint8_t txd)
+int8_t DRV_CANFDSPI_WriteByte(uint16_t address, uint8_t txd)
 {
     uint16_t spiTransferSize = 3;
     int8_t spiTransferError = 0;
@@ -178,39 +186,40 @@ int8_t DRV_CANFDSPI_WriteByte(CANFDSPI_MODULE_ID index, uint16_t address, uint8_
     spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
     spiTransmitBuffer[2] = txd;
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    int8_t spiTransferError = DRV_SPI_Write_Data(spiTransmitBuffer,spiTransferSize);// buffer is already established this interface should only send on the bus
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReadWord(CANFDSPI_MODULE_ID index, uint16_t address, uint32_t *rxd)
+void  DRV_CANFDSPI_ReadWord(uint16_t address, uint32_t *rxd)
 {
     uint8_t i;
     uint32_t x;
-    uint16_t spiTransferSize = 6;
-    int8_t spiTransferError = 0;
+//    uint16_t spiTransferSize = 6;
+//    int8_t spiTransferError = 0;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));
     spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
-    if (spiTransferError) {
-        return spiTransferError;
-    }
+    SPI_Read_Data_Word(uint8_t *buf , *rxd );
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+//    if (spiTransferError) {
+//        return spiTransferError;
+//    }
 
-    // Update data
-    *rxd = 0;
-    for (i = 2; i < 6; i++) {
-        x = (uint32_t) spiReceiveBuffer[i];
-        *rxd += x << ((i - 2)*8);
-    }
+//    // Update data
+//    *rxd = 0;
+//    for (i = 2; i < 6; i++) {
+//        x = (uint32_t) spiReceiveBuffer[i];
+//        *rxd += x << ((i - 2)*8);
+//    }
 
-    return spiTransferError;
+//    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_WriteWord(CANFDSPI_MODULE_ID index, uint16_t address,
-        uint32_t txd)
+int8_t DRV_CANFDSPI_WriteWord( uint16_t address,uint32_t txd)
 {
     uint8_t i;
     uint16_t spiTransferSize = 6;
@@ -225,12 +234,13 @@ int8_t DRV_CANFDSPI_WriteWord(CANFDSPI_MODULE_ID index, uint16_t address,
         spiTransmitBuffer[i + 2] = (uint8_t) ((txd >> (i * 8)) & 0xFF);
     }
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    SPI_Write_Data(spiTransmitBuffer, spiTransferSize);
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReadHalfWord(CANFDSPI_MODULE_ID index, uint16_t address, uint16_t *rxd)
+int8_t DRV_CANFDSPI_ReadHalfWord(uint16_t address, uint16_t *rxd)
 {
     uint8_t i;
     uint32_t x;
@@ -241,23 +251,23 @@ int8_t DRV_CANFDSPI_ReadHalfWord(CANFDSPI_MODULE_ID index, uint16_t address, uin
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));
     spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
-    if (spiTransferError) {
-        return spiTransferError;
-    }
 
+//    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+//    if (spiTransferError) {
+//        return spiTransferError;
+//    }
+    SPI_Read_Data_Half_Word(spiTransmitBuffer , *rxd );
     // Update data
-    *rxd = 0;
-    for (i = 2; i < 4; i++) {
-        x = (uint32_t) spiReceiveBuffer[i];
-        *rxd += x << ((i - 2)*8);
-    }
-
-    return spiTransferError;
+//    *rxd = 0;
+//    for (i = 2; i < 4; i++) {
+//        x = (uint32_t) spiReceiveBuffer[i];
+//        *rxd += x << ((i - 2)*8);
+//    }
+//
+//    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_WriteHalfWord(CANFDSPI_MODULE_ID index, uint16_t address,
-        uint16_t txd)
+int8_t DRV_CANFDSPI_WriteHalfWord(uint16_t address,uint16_t txd)
 {
     uint8_t i;
     uint16_t spiTransferSize = 4;
@@ -271,8 +281,8 @@ int8_t DRV_CANFDSPI_WriteHalfWord(CANFDSPI_MODULE_ID index, uint16_t address,
     for (i = 0; i < 2; i++) {
         spiTransmitBuffer[i + 2] = (uint8_t) ((txd >> (i * 8)) & 0xFF);
     }
-
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    SPI_Write_Data(spiTransmitBuffer, spiTransferSize);
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     return spiTransferError;
 }
@@ -2296,13 +2306,13 @@ int8_t DRV_CANFDSPI_BusDiagnosticsClear(CANFDSPI_MODULE_ID index)
 // *****************************************************************************
 // Section: ECC
 
-int8_t DRV_CANFDSPI_EccEnable(CANFDSPI_MODULE_ID index)
+int8_t DRV_CANFDSPI_EccEnable(void)
 {
     int8_t spiTransferError = 0;
     uint8_t d = 0;
 
     // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_ECCCON, &d);
+    spiTransferError = DRV_CANFDSPI_ReadByte(cREGADDR_ECCCON, &d);
     if (spiTransferError) {
         return -1;
     }
@@ -2311,7 +2321,7 @@ int8_t DRV_CANFDSPI_EccEnable(CANFDSPI_MODULE_ID index)
     d |= 0x01;
 
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_ECCCON, d);
+    spiTransferError = DRV_CANFDSPI_WriteByte(cREGADDR_ECCCON, d);
     if (spiTransferError) {
         return -2;
     }

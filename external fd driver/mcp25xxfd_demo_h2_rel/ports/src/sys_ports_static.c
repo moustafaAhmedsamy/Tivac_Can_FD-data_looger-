@@ -768,7 +768,7 @@
 //                         PORTS_CHANNEL channel,
 //                         PORTS_BIT_POS bitPos )
 //{
-//    return PLIB_PORTS_PinGet ( index, channel, bitPos );
+//    //return PLIB_PORTS_PinGet ( index, channel, bitPos );
 //}
 //
 //

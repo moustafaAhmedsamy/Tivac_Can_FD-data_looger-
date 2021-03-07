@@ -3,16 +3,249 @@
 
 /home/mostafa/ti/ccs1020/ccs/utils/bin/gmake -k -j 8 all -O 
  
-Building file: "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
+Building file: "../driver/mcp25xxfd_driver/spi/spi.c"
 Invoking: Arm Compiler
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/ports/src"  "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
-Finished building: "../mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.c"
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/spi/spi.d_raw" --obj_directory="driver/mcp25xxfd_driver/spi"  "../driver/mcp25xxfd_driver/spi/spi.c"
  
-Building target: "external fd driver.out"
-Invoking: Arm Linker
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"external fd driver.map" --heap_size=0 --stack_size=512 -i"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/lib" -i"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="external fd driver_linkInfo.xml" --rom_model -o "external fd driver.out" "./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj" "./driver/mcp25xxfd_driver/spi/drv_spi.obj" "./mcp25xxfd_demo_h2_rel/firmware/src/app.obj" "./mcp25xxfd_demo_h2_rel/firmware/src/main.obj" "./mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" "../tm4c123gh6pm.cmd"  -llibc.a 
-<Linking>
-Finished building target: "external fd driver.out"
+>> Compilation failure
+driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/spi/spi.obj' failed
+"../driver/mcp25xxfd_driver/spi/spi.c", line 9: fatal error #1965: cannot open source file "inc/hw_ints.h"
+1 catastrophic error detected in the compilation of "../driver/mcp25xxfd_driver/spi/spi.c".
+Compilation terminated.
+gmake: *** [driver/mcp25xxfd_driver/spi/spi.obj] Error 1
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 75: warning #994-D: missing return statement at end of non-void function "DRV_SPI_ChipSelectAssert"
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 130: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 130: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 130: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 131: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 143: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 143: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 143: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 144: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 157: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 157: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 157: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 158: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 169: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 169: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 169: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 170: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 185: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 185: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 185: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 188: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 195: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 195: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 195: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 196: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 194: warning #552-D: parameter "byte" was set but never used
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 203: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 203: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 203: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 204: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 202: warning #552-D: parameter "byte" was set but never used
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 212: error #20: identifier "uint16t" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 214: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 214: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 214: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/spi/drv_spi.c", line 215: warning #225-D: function "spi_send" declared implicitly
+19 errors detected in the compilation of "../driver/mcp25xxfd_driver/spi/drv_spi.c".
+gmake: *** [driver/mcp25xxfd_driver/spi/drv_spi.obj] Error 1
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 134: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_Reset(CANFDSPI_MODULE_ID)" (declared at line 70 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 143: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 143: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 143: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 144: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 136: warning #179-D: variable "spiTransferSize" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 159: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_ReadByte(CANFDSPI_MODULE_ID, uint16_t, uint8_t *)" (declared at line 80 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 173: warning #225-D: function "SPI_Read_Data_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 174: error #32: expression must have arithmetic type
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 161: warning #179-D: variable "spiTransferSize" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 179: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_WriteByte(CANFDSPI_MODULE_ID, uint16_t, uint8_t)" (declared at line 86 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 189: error #102: "spiTransferError" has already been declared in the current scope
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 189: warning #225-D: function "DRV_SPI_Write_Data" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 182: warning #179-D: variable "spiTransferError" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 195: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_ReadWord(CANFDSPI_MODULE_ID, uint16_t, uint32_t *)" (declared at line 92 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 206: warning #225-D: function "SPI_Read_Data_Word" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 206: error #256: type name is not allowed
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 206: error #20: identifier "buf" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 197: warning #179-D: variable "i" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 198: warning #179-D: variable "x" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 222: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_WriteWord(CANFDSPI_MODULE_ID, uint16_t, uint32_t)" (declared at line 98 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 237: warning #225-D: function "SPI_Write_Data" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 243: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_ReadHalfWord(CANFDSPI_MODULE_ID, uint16_t, uint16_t *)" (declared at line 104 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 259: warning #225-D: function "SPI_Read_Data_Half_Word" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 268: warning #994-D: missing return statement at end of non-void function "DRV_CANFDSPI_ReadHalfWord"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 245: warning #179-D: variable "i" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 246: warning #179-D: variable "x" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 247: warning #179-D: variable "spiTransferSize" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 248: warning #179-D: variable "spiTransferError" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 270: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_WriteHalfWord(CANFDSPI_MODULE_ID, uint16_t, uint16_t)" (declared at line 110 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 284: warning #225-D: function "SPI_Write_Data" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 557: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 597: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 597: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 597: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 607: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 622: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 622: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 622: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 674: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 674: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 674: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 683: warning #70-D: integer conversion resulted in truncation
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 683: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 702: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 702: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 702: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 711: warning #70-D: integer conversion resulted in truncation
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 711: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 744: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 780: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 902: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 964: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 980: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 990: warning #169-D: argument of type "int" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 990: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 990: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 990: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1010: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1021: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1021: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1021: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1030: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1045: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1045: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1045: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1055: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1080: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1097: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1120: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1134: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1134: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1143: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1160: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1160: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1169: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1184: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1194: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1223: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1251: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1251: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1381: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1399: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1419: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1419: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1525: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1542: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1558: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1588: warning #169-D: argument of type "int" is incompatible with parameter of type "uint16_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1588: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1588: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1610: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint16_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1610: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1619: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1638: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint16_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1638: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1647: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1674: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1692: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1692: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1718: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1718: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1744: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1744: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1765: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1765: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1795: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1795: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1810: warning #169-D: argument of type "int" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1810: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1810: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1810: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1820: warning #169-D: argument of type "int" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1820: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1820: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1820: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1836: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1836: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1836: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1858: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1858: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1867: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1886: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1886: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1895: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1914: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1914: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1923: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1949: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1949: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1964: warning #169-D: argument of type "int" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1964: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1964: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1964: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1974: warning #169-D: argument of type "int" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1974: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1974: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1974: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1998: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 1998: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2007: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2028: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2028: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2037: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2058: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2058: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2067: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2091: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2091: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2113: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2113: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2122: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2141: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2141: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2150: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2168: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2168: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2177: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2199: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2199: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2213: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2213: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2228: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2228: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2250: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint32_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2250: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2250: error #515: a value of type "void" cannot be assigned to an entity of type "int8_t"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2282: warning #177-D: subscript out of range
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2309: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_EccEnable(CANFDSPI_MODULE_ID)" (declared at line 846 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2338: warning #169-D: argument of type "int" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2338: warning #154-D: conversion of nonzero integer to pointer
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2338: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2347: warning #70-D: integer conversion resulted in truncation
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2347: error #141: too many arguments in function call
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2365: warning #169-D: argument of type "uint16_t" is incompatible with parameter of type "uint8_t *"
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 2365: error #141: too many arguments in function call
+Error limit reached.
+100 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c".
+Compilation terminated.
+gmake: *** [driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj] Error 1
+Building file: "../driver/mcp25xxfd_driver/spi/drv_spi.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/spi/drv_spi.d_raw" --obj_directory="driver/mcp25xxfd_driver/spi"  "../driver/mcp25xxfd_driver/spi/drv_spi.c"
  
+>> Compilation failure
+driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/spi/drv_spi.obj' failed
+Building file: "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.d_raw" --obj_directory="driver/mcp25xxfd_driver/canfdspi"  "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
+ 
+>> Compilation failure
+driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj' failed
+gmake: Target 'all' not remade because of errors.
 
 **** Build Finished ****

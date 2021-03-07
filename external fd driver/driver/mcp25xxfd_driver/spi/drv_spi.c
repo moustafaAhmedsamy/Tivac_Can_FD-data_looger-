@@ -52,6 +52,8 @@
 
 int8_t DRV_SPI_ChipSelectAssert(uint8_t spiSlaveDeviceIndex, bool assert)
 {
+
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
 //    int8_t error = 0;
 //
 //    // Select Chip Select
@@ -124,20 +126,99 @@ void DRV_SPI_Initialize()
 //    return;
 }
 
-int8_t DRV_SPI_TransferData(uint8_t spiSlaveDeviceIndex, uint8_t *SpiTxData, uint8_t *SpiRxData, uint16_t spiTransferSize)
+void enc_rbm(uint8_t *buf, uint16_t count) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0); //
+    spi_send(0x20 | 0x1A);
+    int i;
+    for (i = 0; i < count; i++) {
+        *buf = spi_send(0xFF);
+        buf++;
+    }
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+/**
+ * Write Buffer Memory.
+ */
+void enc_wbm(const uint8_t *buf, uint16_t count) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(0x60 | 0x1A);
+    int i;
+    for (i = 0; i < count; i++) {
+        spi_send(*buf);
+        buf++;
+    }
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+
+/**
+ * Write Control Register (WCR)
+ */
+void enc_wcr(uint8_t reg, uint8_t val) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(0x40 | reg);
+    spi_send(val);
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+/**
+ * Read Control Register for MAC an MII registers.
+ * Reading MAC and MII registers produces an initial dummy
+ * byte. Presumably because it takes longer to fetch the values
+ * of those registers.
+ */
+uint8_t enc_rcr_m(uint8_t reg) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(reg);
+    spi_send(0xFF);
+    uint8_t b = spi_send(0xFF); // Dummy
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+    return b;
+}
+
+
+/*
+ *
+ *  the passed buffer is already established
+ *  this interface should only send on the bus
+ */
+void SPI_Write_Data(const uint8_t *buf, uint16_t count)
 {
-//    int8_t error = 0;
-//    bool continueLoop;
-//    uint16_t txcounter = 0;
-//    uint16_t rxcounter = 0;
-//    uint8_t unitsTxed = 0;
-//    const uint8_t maxUnits = 16;
-//
-//    // Assert CS
-//    error = DRV_SPI_ChipSelectAssert(spiSlaveDeviceIndex, true);
-//    if (error != 0) return error;
-//
-//    // Loop until spiTransferSize
+        MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+        int i;
+        for (i = 0; i < count; i++) {
+            spi_send(*buf);
+            buf++;
+        }
+        MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+
+void SPI_Read_Data_Byte(uint8_t *buf , uint8_t byte ) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(buf[0]);
+    spi_send(buf[1]);
+    byte = spi_send(buf[2]);
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+
+void SPI_Read_Data_Word(uint8_t *buf , uint32_t byte ) {
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(buf[0]);
+    spi_send(buf[1]);
+    byte = spi_send(buf[2]);
+    byte = spi_send(buf[3])<<8;
+    byte = spi_send(buf[4])<<16;
+    byte = spi_send(buf[5])<<24;
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+void SPI_Read_Data_Half_Word(uint8_t *buf , uint16t Half_word )
+{
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+    spi_send(buf[0]);
+    spi_send(buf[1]);
+    Half_word = spi_send(buf[2]);
+    Half_word = spi_send(buf[3])<<8;
+
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
 //    do {
 //        continueLoop = false;
 //        unitsTxed = 0;
@@ -167,8 +248,3 @@ int8_t DRV_SPI_TransferData(uint8_t spiSlaveDeviceIndex, uint8_t *SpiTxData, uin
 //
 //    } while (continueLoop);
 //
-//    // De-assert CS
-//    error = DRV_SPI_ChipSelectAssert(spiSlaveDeviceIndex, false);
-//
-//    return error;
-}
