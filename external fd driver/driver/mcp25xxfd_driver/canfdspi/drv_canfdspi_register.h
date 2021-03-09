@@ -104,6 +104,8 @@ extern "C" {
 #define cREGADDR_CiFIFOUA   0x058
 #define CiFIFO_OFFSET       (3*4)
 
+//each 3 registers occupy 3 words
+
 #define cREGADDR_CiTXQCON  0x050
 #define cREGADDR_CiTXQSTA  0x054
 #define cREGADDR_CiTXQUA   0x058

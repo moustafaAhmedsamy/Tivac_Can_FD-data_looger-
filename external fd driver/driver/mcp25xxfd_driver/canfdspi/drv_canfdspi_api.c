@@ -415,8 +415,7 @@ int8_t DRV_CANFDSPI_ReadByteArrayWithCRC(CANFDSPI_MODULE_ID index, uint16_t addr
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_WriteByteArray(CANFDSPI_MODULE_ID index, uint16_t address,
-        uint8_t *txd, uint16_t nBytes)
+int8_t DRV_CANFDSPI_WriteByteArray( uint16_t address,uint8_t *txd, uint16_t nBytes)
 {
     uint16_t i;
     uint16_t spiTransferSize = nBytes + 2;
@@ -431,7 +430,8 @@ int8_t DRV_CANFDSPI_WriteByteArray(CANFDSPI_MODULE_ID index, uint16_t address,
         spiTransmitBuffer[i] = txd[i - 2];
     }
 
-    spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
+    SPI_Write_Data(spiTransmitBuffer, spiTransferSize);
+    //spiTransferError = DRV_SPI_TransferData(index, spiTransmitBuffer, spiReceiveBuffer, spiTransferSize);
 
     return spiTransferError;
 }
@@ -722,15 +722,14 @@ int8_t DRV_CANFDSPI_LowPowerModeDisable(CANFDSPI_MODULE_ID index)
 // *****************************************************************************
 // Section: CAN Transmit
 
-int8_t DRV_CANFDSPI_TransmitChannelConfigure(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_TX_FIFO_CONFIG* config)
+void DRV_CANFDSPI_TransmitFIOFConfigure( CAN_FIFO_INDEX fifo_index, CAN_TX_FIFO_CONFIG* config)
 {
     int8_t spiTransferError = 0;
     uint16_t a = 0;
 
-    // Setup FIFO
+    // Setup FIFO ,this container is union
     REG_CiFIFOCON ciFifoCon;
-    ciFifoCon.word = canFifoResetValues[0];
+    ciFifoCon.word = canFifoResetValues[0]; // reseting the values of the union before writing
 
     ciFifoCon.txBF.TxEnable = 1;
     ciFifoCon.txBF.FifoSize = config->FifoSize;
@@ -739,14 +738,14 @@ int8_t DRV_CANFDSPI_TransmitChannelConfigure(CANFDSPI_MODULE_ID index,
     ciFifoCon.txBF.TxPriority = config->TxPriority;
     ciFifoCon.txBF.RTREnable = config->RTREnable;
 
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
+    a = cREGADDR_CiFIFOCON + (fifo_index * CiFIFO_OFFSET);
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, ciFifoCon.word);
+    // this container is union , so all the writes modyied also the word member
+    DRV_CANFDSPI_WriteWord( a, ciFifoCon.word);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_TransmitChannelConfigureObjectReset(CAN_TX_FIFO_CONFIG* config)
+int8_t DRV_CANFDSPI_TransmitFIOFConfigureObjectReset(CAN_TX_FIFO_CONFIG* config)
 {
     REG_CiFIFOCON ciFifoCon;
     ciFifoCon.word = canFifoResetValues[0];
@@ -795,54 +794,55 @@ int8_t DRV_CANFDSPI_TransmitQueueConfigureObjectReset(CAN_TX_QUEUE_CONFIG* confi
     return 0;
 }
 
-int8_t DRV_CANFDSPI_TransmitChannelLoad(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_TX_MSGOBJ* txObj,
-        uint8_t *txd, uint32_t txdNumBytes, bool flush)
+int8_t DRV_CANFDSPI_Transmit_Object_Load( CAN_FIFO_INDEX fifo_index , CAN_TX_MSGOBJ* txObj,        uint8_t *txd, uint32_t txdNumBytes, bool flush)
 {
-    uint16_t a;
-    uint32_t fifoReg[3];
+    uint16_t a;                                            // address of the first register
+    uint32_t fifoReg[3];                                   //buffer for reading the 3 registers
     uint32_t dataBytesInObject;
-    REG_CiFIFOCON ciFifoCon;
-    __attribute__((unused)) REG_CiFIFOSTA ciFifoSta;
-    REG_CiFIFOUA ciFifoUa;
+
+    REG_CiFIFOCON ciFifoCon;                               // register 1 control
+    __attribute__((unused)) REG_CiFIFOSTA ciFifoSta;       // register 2 status
+    REG_CiFIFOUA ciFifoUa;                                 // register 3 address
+
     int8_t spiTransferError = 0;
 
     // Get FIFO registers
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
+    a = cREGADDR_CiFIFOCON + (fifo_index * CiFIFO_OFFSET);    // get address
 
-    spiTransferError = DRV_CANFDSPI_ReadWordArray(index, a, fifoReg, 3);
+    spiTransferError = DRV_CANFDSPI_ReadWordArray(index, a, fifoReg, 3); // read the 3 registers
     if (spiTransferError) {
         return -1;
     }
 
     // Check that it is a transmit buffer
-    ciFifoCon.word = fifoReg[0];
-    if (!ciFifoCon.txBF.TxEnable) {
+    ciFifoCon.word = fifoReg[0];                        // assign the fist word in the first register
+    if (!ciFifoCon.txBF.TxEnable) {                     // Check that it is a transmit buffer
         return -2;
     }
 
     // Check that DLC is big enough for data
-    dataBytesInObject = DRV_CANFDSPI_DlcToDataBytes((CAN_DLC) txObj->bF.ctrl.DLC);
+    dataBytesInObject = DRV_CANFDSPI_DlcToDataBytes((CAN_DLC) txObj->bF.ctrl.DLC);  // from the lookup table get the no. of bytes to be send
     if (dataBytesInObject < txdNumBytes) {
         return -3;
     }
 
     // Get status
-    ciFifoSta.word = fifoReg[1];
+    ciFifoSta.word = fifoReg[1];                        // assign the 2nd word in the 2nd register
 
     // Get address
-    ciFifoUa.word = fifoReg[2];
+    ciFifoUa.word = fifoReg[2];                        // assign the 3rd word in the 3rd register
 #ifdef USERADDRESS_TIMES_FOUR
     a = 4 * ciFifoUa.bF.UserAddress;
 #else
-    a = ciFifoUa.bF.UserAddress;
+    a = ciFifoUa.bF.UserAddress;                      // next address to write the message object , offset from 0 to last message object
 #endif
-    a += cRAMADDR_START;
+    a += cRAMADDR_START;                              // the address for next write = base address of rame(0x400)+ offset
 
     uint8_t txBuffer[MAX_MSG_SIZE];
 
-    txBuffer[0] = txObj->byte[0]; //not using 'for' to reduce no of instructions
-    txBuffer[1] = txObj->byte[1];
+    //not using 'for' to reduce no of instructions
+    txBuffer[0] = txObj->byte[0];                   // fill the TX_OBJECT_BUFFER , to be written in the ram
+    txBuffer[1] = txObj->byte[1];                   // writing the frist 2 words
     txBuffer[2] = txObj->byte[2];
     txBuffer[3] = txObj->byte[3];
 
@@ -851,7 +851,7 @@ int8_t DRV_CANFDSPI_TransmitChannelLoad(CANFDSPI_MODULE_ID index,
     txBuffer[6] = txObj->byte[6];
     txBuffer[7] = txObj->byte[7];
 
-    uint8_t i;
+    uint8_t i;                                      // fill the TX_OBJECT_BUFFER by the data after the first 2 words
     for (i = 0; i < txdNumBytes; i++) {
         txBuffer[i + 8] = txd[i];
     }
@@ -860,7 +860,7 @@ int8_t DRV_CANFDSPI_TransmitChannelLoad(CANFDSPI_MODULE_ID index,
     uint16_t n = 0;
     uint8_t j = 0;
 
-    if (txdNumBytes % 4) {
+    if (txdNumBytes % 4) {                          // soon
         // Need to add bytes
         n = 4 - (txdNumBytes % 4);
         i = txdNumBytes + 8;
@@ -870,13 +870,14 @@ int8_t DRV_CANFDSPI_TransmitChannelLoad(CANFDSPI_MODULE_ID index,
         }
     }
 
-    spiTransferError = DRV_CANFDSPI_WriteByteArray(index, a, txBuffer, txdNumBytes + 8 + n);
+    spiTransferError = DRV_CANFDSPI_WriteByteArray( a, txBuffer, txdNumBytes + 8 + n);
     if (spiTransferError) {
         return -4;
     }
 
     // Set UINC and TXREQ
-    spiTransferError = DRV_CANFDSPI_TransmitChannelUpdate(index, channel, flush);
+    //              ^^^^^
+    spiTransferError = DRV_CANFDSPI_TransmitChannelUpdate( fifo_index, flush);
     if (spiTransferError) {
         return -5;
     }
@@ -944,8 +945,7 @@ int8_t DRV_CANFDSPI_TransmitChannelReset(CANFDSPI_MODULE_ID index,
     return DRV_CANFDSPI_ReceiveChannelReset(index, channel);
 }
 
-int8_t DRV_CANFDSPI_TransmitChannelUpdate(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, bool flush)
+int8_t DRV_CANFDSPI_TransmitFifoUpdate(CAN_FIFO_INDEX fifo_index, bool flush)
 {
     uint16_t a;
     REG_CiFIFOCON ciFifoCon;

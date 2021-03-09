@@ -114,7 +114,8 @@ typedef enum {
     CAN_FIFO_CH30,
     CAN_FIFO_CH31,
     CAN_FIFO_TOTAL_CHANNELS
-} CAN_FIFO_CHANNEL;
+} CAN_FIFO_INDEX;
+
 
 // FIFO0 is a special FIFO, the TX Queue
 #define CAN_TXQUEUE_CH0 CAN_FIFO_CH0

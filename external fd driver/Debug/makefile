@@ -11,6 +11,7 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
 "./driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj" \
+"./driver/mcp25xxfd_driver/canfdspi/functions.obj" \
 "./driver/mcp25xxfd_driver/spi/drv_spi.obj" \
 "./driver/mcp25xxfd_driver/spi/spi.obj" \
 "./mcp25xxfd_demo_h2_rel/firmware/src/app.obj" \
@@ -167,8 +168,8 @@ external\ fd\ driver.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj" "driver/mcp25xxfd_driver/spi/drv_spi.obj" "driver/mcp25xxfd_driver/spi/spi.obj" "mcp25xxfd_demo_h2_rel/firmware/src/app.obj" "mcp25xxfd_demo_h2_rel/firmware/src/main.obj" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" 
-	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.d" "driver/mcp25xxfd_driver/spi/drv_spi.d" "driver/mcp25xxfd_driver/spi/spi.d" "mcp25xxfd_demo_h2_rel/firmware/src/app.d" "mcp25xxfd_demo_h2_rel/firmware/src/main.d" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.d" 
+	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj" "driver/mcp25xxfd_driver/canfdspi/functions.obj" "driver/mcp25xxfd_driver/spi/drv_spi.obj" "driver/mcp25xxfd_driver/spi/spi.obj" "mcp25xxfd_demo_h2_rel/firmware/src/app.obj" "mcp25xxfd_demo_h2_rel/firmware/src/main.obj" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" 
+	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.d" "driver/mcp25xxfd_driver/canfdspi/functions.d" "driver/mcp25xxfd_driver/spi/drv_spi.d" "driver/mcp25xxfd_driver/spi/spi.d" "mcp25xxfd_demo_h2_rel/firmware/src/app.d" "mcp25xxfd_demo_h2_rel/firmware/src/main.d" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
