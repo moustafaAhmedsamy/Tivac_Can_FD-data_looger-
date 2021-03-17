@@ -3711,3 +3711,52 @@ Caused by: java.io.EOFException: SSL peer shut down incorrectly
 	at sun.security.ssl.InputRecord.read(InputRecord.java:505)
 	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:973)
 	... 19 more
+!SESSION 2021-03-17 11:46:08.523 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_112
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2021-03-17 11:46:11.559
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2021-03-17 11:46:11.560
+!MESSAGE debugServerDir=/home/mostafa/ti/ccs1020/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.ccstudio.ui 1 0 2021-03-17 11:46:18.700
+!MESSAGE CCS IDE session started!
+	CCS build: 10.2.0.00009
+	CCS location: /home/mostafa/ti/ccs1020/ccs
+	Workspace location: /home/mostafa/mostafa/ccs_repos
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.024
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.024
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.024
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.042
+!MESSAGE Platform os: linux
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.042
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.049
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.053
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.055
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2021-03-17 11:46:19.095
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2021-03-17 11:46:19.206
+!MESSAGE CCS HTTP adapter started! [ccs.port:44415] - Open 'http://localhost:44415/ide' in web browser to see listing of available APIs...
