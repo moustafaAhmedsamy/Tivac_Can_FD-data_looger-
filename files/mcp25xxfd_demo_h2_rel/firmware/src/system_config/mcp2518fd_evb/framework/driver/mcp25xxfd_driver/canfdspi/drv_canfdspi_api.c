@@ -1189,7 +1189,7 @@ int8_t DRV_CANFDSPI_DeviceNetFilterCountSet(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CANFDSPI_MODULE_ID index,
+int8_t DRV_CANFDSPI_ReceiveBufferConfigure(CANFDSPI_MODULE_ID index,
         CAN_FIFO_CHANNEL channel, CAN_RX_FIFO_CONFIG* config)
 {
     int8_t spiTransferError = 0;

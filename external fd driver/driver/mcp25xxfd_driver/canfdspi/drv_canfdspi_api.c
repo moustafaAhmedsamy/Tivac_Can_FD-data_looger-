@@ -1065,8 +1065,7 @@ int8_t DRV_CANFDSPI_TransmitBandWidthSharingSet(CANFDSPI_MODULE_ID index,
 // *****************************************************************************
 // Section: CAN Receive
 
-int8_t DRV_CANFDSPI_FilterObjectConfigure(CANFDSPI_MODULE_ID index,
-        CAN_FILTER filter, CAN_FILTEROBJ_ID* id)
+int8_t DRV_CANFDSPI_FilterObjectConfigure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id)
 {
     uint16_t a;
     REG_CiFLTOBJ fObj;
@@ -1082,8 +1081,7 @@ int8_t DRV_CANFDSPI_FilterObjectConfigure(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_FilterMaskConfigure(CANFDSPI_MODULE_ID index,
-        CAN_FILTER filter, CAN_MASKOBJ_ID* mask)
+int8_t DRV_CANFDSPI_FilterMaskConfigure(CAN_FILTER filter, CAN_MASKOBJ_ID* mask)
 {
     uint16_t a;
     REG_CiMASK mObj;
@@ -1099,8 +1097,7 @@ int8_t DRV_CANFDSPI_FilterMaskConfigure(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_FilterToFifoLink(CANFDSPI_MODULE_ID index,
-        CAN_FILTER filter, CAN_FIFO_CHANNEL channel, bool enable)
+int8_t DRV_CANFDSPI_FilterToFifoLink( CAN_FILTER filter, CAN_FIFO_CHANNEL channel, bool enable)
 {
     uint16_t a;
     REG_CiFLTCON_BYTE fCtrl;
@@ -1199,13 +1196,12 @@ int8_t DRV_CANFDSPI_DeviceNetFilterCountSet(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_RX_FIFO_CONFIG* config)
+int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config)
 {
     int8_t spiTransferError = 0;
     uint16_t a = 0;
 
-    if (channel == CAN_TXQUEUE_CH0) {
+    if (buffer_index == CAN_TXQUEUE_CH0) {
         return -100;
     }
 
@@ -1220,9 +1216,7 @@ int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CANFDSPI_MODULE_ID index,
 
     a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, ciFifoCon.word);
-
-    return spiTransferError;
+    DRV_CANFDSPI_WriteWord(index, a, ciFifoCon.word);
 }
 
 int8_t DRV_CANFDSPI_ReceiveChannelConfigureObjectReset(CAN_RX_FIFO_CONFIG* config)
@@ -1259,9 +1253,7 @@ int8_t DRV_CANFDSPI_ReceiveChannelStatusGet(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReceiveMessageGet(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_RX_MSGOBJ* rxObj,
-        uint8_t *rxd, uint8_t nBytes)
+int8_t DRV_CANFDSPI_ReceiveMessageGet(CAN_FIFO_INDEX buffer_index, CAN_RX_MSGOBJ* rxObj,uint8_t *rxd, uint8_t nBytes)
 {
     uint8_t n = 0;
     uint8_t i = 0;
@@ -1273,12 +1265,10 @@ int8_t DRV_CANFDSPI_ReceiveMessageGet(CANFDSPI_MODULE_ID index,
     int8_t spiTransferError = 0;
 
     // Get FIFO registers
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET);
 
-    spiTransferError = DRV_CANFDSPI_ReadWordArray(index, a, fifoReg, 3);
-    if (spiTransferError) {
-        return -1;
-    }
+    DRV_CANFDSPI_ReadWordArray( a, fifoReg, 3);
+
 
     // Check that it is a receive buffer
     ciFifoCon.word = fifoReg[0];
@@ -1299,10 +1289,10 @@ int8_t DRV_CANFDSPI_ReceiveMessageGet(CANFDSPI_MODULE_ID index,
     a += cRAMADDR_START;
 
     // Number of bytes to read
-    n = nBytes + 8; // Add 8 header bytes
+    n = nBytes + 8; // Add 8 header bytes  , first 2 words
 
     if (ciFifoCon.rxBF.RxTimeStampEnable) {
-        n += 4; // Add 4 time stamp bytes
+        n += 4; // Add 4 time stamp bytes , if it is configured
     }
 
     // Make sure we read a multiple of 4 bytes from RAM
@@ -1317,10 +1307,8 @@ int8_t DRV_CANFDSPI_ReceiveMessageGet(CANFDSPI_MODULE_ID index,
         n = MAX_MSG_SIZE;
     }
 
-    spiTransferError = DRV_CANFDSPI_ReadByteArray(index, a, ba, n);
-    if (spiTransferError) {
-        return -3;
-    }
+    DRV_CANFDSPI_ReadByteArray( a, ba, n);
+
 
     // Assign message header
     REG_t myReg;
@@ -1358,10 +1346,7 @@ int8_t DRV_CANFDSPI_ReceiveMessageGet(CANFDSPI_MODULE_ID index,
     }
 
     // UINC channel
-    spiTransferError = DRV_CANFDSPI_ReceiveChannelUpdate(index, channel);
-    if (spiTransferError) {
-        return -4;
-    }
+    DRV_CANFDSPI_ReceiveChannelUpdate(buffer_index);
 
     return spiTransferError;
 }
@@ -1383,8 +1368,7 @@ int8_t DRV_CANFDSPI_ReceiveChannelReset(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ReceiveChannelUpdate(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel)
+int8_t DRV_CANFDSPI_ReceiveChannelUpdate(CAN_FIFO_INDEX buffer_index)
 {
     uint16_t a = 0;
     REG_CiFIFOCON ciFifoCon;
@@ -1392,11 +1376,11 @@ int8_t DRV_CANFDSPI_ReceiveChannelUpdate(CANFDSPI_MODULE_ID index,
     ciFifoCon.word = 0;
 
     // Set UINC
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
     ciFifoCon.rxBF.UINC = 1;
 
     // Write byte
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, ciFifoCon.byte[1]);
+    spiTransferError = DRV_CANFDSPI_WriteByte( a, ciFifoCon.byte[1]);
 
     return spiTransferError;
 }
@@ -1596,8 +1580,7 @@ int8_t DRV_CANFDSPI_ModuleEventGet(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_ModuleEventEnable(CANFDSPI_MODULE_ID index,
-        CAN_MODULE_EVENT flags)
+int8_t CANFDSPI_Module_Event_Enable( CAN_MODULE_EVENT flags)
 {
     int8_t spiTransferError = 0;
     uint16_t a = 0;
@@ -1607,21 +1590,14 @@ int8_t DRV_CANFDSPI_ModuleEventEnable(CANFDSPI_MODULE_ID index,
     REG_CiINTENABLE intEnables;
     intEnables.word = 0;
 
-    spiTransferError = DRV_CANFDSPI_ReadHalfWord(index, a, &intEnables.word);
-    if (spiTransferError) {
-        return -1;
-    }
+    DRV_CANFDSPI_ReadHalfWord(index, a, &intEnables.word);
 
     // Modify
     intEnables.word |= (flags & CAN_ALL_EVENTS);
 
     // Write
     spiTransferError = DRV_CANFDSPI_WriteHalfWord(index, a, intEnables.word);
-    if (spiTransferError) {
-        return -2;
-    }
 
-    return spiTransferError;
 }
 
 int8_t DRV_CANFDSPI_ModuleEventDisable(CANFDSPI_MODULE_ID index,
