@@ -12,113 +12,23 @@
 // *****************************************************************************
 // Section: Oscillator and Bit Time
 
-int8_t DRV_CANFDSPI_OscillatorEnable(CANFDSPI_MODULE_ID index)
-{
-    int8_t spiTransferError = 0;
-    uint8_t d = 0;
-
-    // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_OSC, &d);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    d &= ~0x4;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_OSC, d);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_OscillatorControlSet(CANFDSPI_MODULE_ID index,
-        CAN_OSC_CTRL ctrl)
-{
-    int8_t spiTransferError = 0;
-
-    REG_OSC osc;
-    osc.word = 0;
-
-    osc.bF.PllEnable = ctrl.PllEnable;
-    osc.bF.OscDisable = ctrl.OscDisable;
-    osc.bF.SCLKDIV = ctrl.SclkDivide;
-    osc.bF.CLKODIV = ctrl.ClkOutDivide;
-#ifndef MCP2517FD
-    osc.bF.LowPowerModeEnable = ctrl.LowPowerModeEnable;
-#endif
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_OSC, osc.byte[0]);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_OscillatorControlObjectReset(CAN_OSC_CTRL* ctrl)
-{
-    REG_OSC osc;
-    osc.word = mcp25xxfdControlResetValues[0];
-
-    ctrl->PllEnable = osc.bF.PllEnable;
-    ctrl->OscDisable = osc.bF.OscDisable;
-    ctrl->SclkDivide = osc.bF.SCLKDIV;
-    ctrl->ClkOutDivide = osc.bF.CLKODIV;
-
-    return 0;
-}
-
-int8_t DRV_CANFDSPI_OscillatorStatusGet(CANFDSPI_MODULE_ID index,
-        CAN_OSC_STATUS* status)
-{
-    int8_t spiTransferError = 0;
-
-    REG_OSC osc;
-    osc.word = 0;
-    CAN_OSC_STATUS stat;
-
-    // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_OSC + 1, &osc.byte[1]);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    stat.PllReady = osc.bF.PllReady;
-    stat.OscReady = osc.bF.OscReady;
-    stat.SclkReady = osc.bF.SclkReady;
-
-    *status = stat;
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_BitTimeConfigure(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode,
-        CAN_SYSCLK_SPEED clk)
+void DRV_CANFDSPI_BitTimeConfigure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode,CAN_SYSCLK_SPEED clk)
 {
     int8_t spiTransferError = 0;
 
     // Decode clk
     switch (clk) {
         case CAN_SYSCLK_40M:
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureNominal40MHz(index, bitTime);
-            if (spiTransferError) return spiTransferError;
-
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureData40MHz(index, bitTime, sspMode);
+            DRV_CANFDSPI_BitTimeConfigureNominal40MHz(index, bitTime);
+            DRV_CANFDSPI_BitTimeConfigureData40MHz(index, bitTime, sspMode);
             break;
         case CAN_SYSCLK_20M:
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureNominal20MHz(index, bitTime);
-            if (spiTransferError) return spiTransferError;
-
+            DRV_CANFDSPI_BitTimeConfigureNominal20MHz(index, bitTime);
             spiTransferError = DRV_CANFDSPI_BitTimeConfigureData20MHz(index, bitTime, sspMode);
             break;
         case CAN_SYSCLK_10M:
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureNominal10MHz(index, bitTime);
-            if (spiTransferError) return spiTransferError;
-
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureData10MHz(index, bitTime, sspMode);
+            DRV_CANFDSPI_BitTimeConfigureNominal10MHz(index, bitTime);
+            DRV_CANFDSPI_BitTimeConfigureData10MHz(index, bitTime, sspMode);
             break;
         default:
             spiTransferError = -1;
@@ -128,8 +38,7 @@ int8_t DRV_CANFDSPI_BitTimeConfigure(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime)
+void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
@@ -188,13 +97,11 @@ int8_t DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiNBTCFG, ciNbtcfg.word);
+    SPI_Write_Word(cREGADDR_CiNBTCFG, ciNbtcfg.word);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureData40MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
@@ -366,10 +273,7 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData40MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiDBTCFG, ciDbtcfg.word);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
 
     // Write Transmitter Delay Compensation
 #ifdef REV_A
@@ -377,16 +281,11 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData40MHz(CANFDSPI_MODULE_ID index,
     ciTdc.bF.TDCValue = 0;
 #endif
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiTDC, ciTdc.word);
-    if (spiTransferError) {
-        return -3;
-    }
+    SPI_Write_Word( cREGADDR_CiTDC, ciTdc.word);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureNominal20MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime)
+void DRV_CANFDSPI_BitTimeConfigureNominal20MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
@@ -444,16 +343,10 @@ int8_t DRV_CANFDSPI_BitTimeConfigureNominal20MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiNBTCFG, ciNbtcfg.word);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
+    SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureData20MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+void DRV_CANFDSPI_BitTimeConfigureData20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
@@ -586,10 +479,7 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData20MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiDBTCFG, ciDbtcfg.word);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
 
     // Write Transmitter Delay Compensation
 #ifdef REV_A
@@ -597,16 +487,11 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData20MHz(CANFDSPI_MODULE_ID index,
     ciTdc.bF.TDCValue = 0;
 #endif
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiTDC, ciTdc.word);
-    if (spiTransferError) {
-        return -3;
-    }
+    SPI_Write_Word(index, cREGADDR_CiTDC, ciTdc.word);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureNominal10MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime)
+void DRV_CANFDSPI_BitTimeConfigureNominal10MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
@@ -664,16 +549,11 @@ int8_t DRV_CANFDSPI_BitTimeConfigureNominal10MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiNBTCFG, ciNbtcfg.word);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CANFDSPI_MODULE_ID index,
-        CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
@@ -774,10 +654,7 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CANFDSPI_MODULE_ID index,
     }
 
     // Write Bit time registers
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiDBTCFG, ciDbtcfg.word);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
 
     // Write Transmitter Delay Compensation
 #ifdef REV_A
@@ -785,11 +662,7 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CANFDSPI_MODULE_ID index,
     ciTdc.bF.TDCValue = 0;
 #endif
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiTDC, ciTdc.word);
-    if (spiTransferError) {
-        return -3;
-    }
+    SPI_Write_Word(cREGADDR_CiTDC, ciTdc.word);
 
-    return spiTransferError;
 }
 
