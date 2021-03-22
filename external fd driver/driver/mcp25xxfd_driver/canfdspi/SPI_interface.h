@@ -10,6 +10,7 @@
 
 void SPI_Reset(void);
 void SPI_Write_Byte_Array(const uint8_t *buf, uint16_t count);
+void SPI_Write_Byte(uint16_t address , uint8_t byte );
 void SPI_Write_Word( uint16_t address,uint32_t txd);
 void SPI_Write_Half_Word(uint16_t address,uint16_t txd);
 void SPI_Write_Word_Array(uint16_t address, uint32_t *txd, uint16_t nWords);

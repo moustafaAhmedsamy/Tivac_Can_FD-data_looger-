@@ -730,6 +730,32 @@ int8_t DRV_CANFDSPI_TefConfigureObjectReset(CAN_TEF_CONFIG* config)
 
 //************************************************************************************************************************************************
 
+
+int8_t DRV_CANFDSPI_ReceiveChannelStatusGet(CANFDSPI_MODULE_ID index,
+        CAN_FIFO_CHANNEL channel, CAN_RX_FIFO_STATUS* status)
+{
+    uint16_t a;
+    REG_CiFIFOSTA ciFifoSta;
+    int8_t spiTransferError = 0;
+
+    // Read
+    ciFifoSta.word = 0;
+    a = cREGADDR_CiFIFOSTA + (channel * CiFIFO_OFFSET);
+
+    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &ciFifoSta.byte[0]);
+    if (spiTransferError) {
+        return -1;
+    }
+
+    // Update data
+    *status = (CAN_RX_FIFO_STATUS) (ciFifoSta.byte[0] & 0x0F);
+
+    return spiTransferError;
+}
+
+
+
+
 // interputs
 int8_t DRV_CANFDSPI_ModuleEventGet(CANFDSPI_MODULE_ID index,
         CAN_MODULE_EVENT* flags)

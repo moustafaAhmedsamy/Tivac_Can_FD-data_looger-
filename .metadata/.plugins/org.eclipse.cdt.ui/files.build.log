@@ -17,6 +17,10 @@ gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/main.obj] Error 1
 1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/app.c".
 Compilation terminated.
 gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/app.obj] Error 1
+"../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 50: fatal error #1965: cannot open source file "drv_spi.h"
+1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c".
+Compilation terminated.
+gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj] Error 1
 "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.c", line 41: error #20: identifier "uint8_t" is undefined
 "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.c", line 41: error #20: identifier "SPI_DEFAULT_BUFFER_LENGTH" is undefined
 "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.c", line 44: error #20: identifier "uint8_t" is undefined
@@ -122,10 +126,6 @@ gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/frame
 1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/drv_spi.c".
 Compilation terminated.
 gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/drv_spi.obj] Error 1
-"../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c", line 50: fatal error #1965: cannot open source file "drv_spi.h"
-1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c".
-Compilation terminated.
-gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj] Error 1
 "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src/sys_devcon_local.h", line 58: fatal error #1965: cannot open source file "system_config.h"
 1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src/sys_devcon_pic32mx.c".
 Compilation terminated.
@@ -147,19 +147,25 @@ gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/syste
 Compilation terminated.
 gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_interrupt.obj] Error 1
 "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_config.h", line 63: fatal error #1965: cannot open source file "system/common/sys_common.h"
-1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c".
-Compilation terminated.
-gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.obj] Error 1
-"../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_config.h", line 63: fatal error #1965: cannot open source file "system/common/sys_common.h"
 1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.c".
 Compilation terminated.
 gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.obj] Error 1
+"../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_config.h", line 63: fatal error #1965: cannot open source file "system/common/sys_common.h"
+1 catastrophic error detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c".
+Compilation terminated.
+gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.obj] Error 1
 Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/app.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/app.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src"  "../mcp25xxfd_demo_h2_rel/firmware/src/app.c"
  
 >> Compilation failure
 mcp25xxfd_demo_h2_rel/firmware/src/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/app.obj' failed
+Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
+ 
+>> Compilation failure
+mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj' failed
 Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/SPI_interface.c"
@@ -184,12 +190,6 @@ Invoking: Arm Compiler
  
 >> Compilation failure
 mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/spi/drv_spi.obj' failed
-Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
-Invoking: Arm Compiler
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c"
- 
->> Compilation failure
-mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj' failed
 Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src/sys_devcon_pic32mx.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src/sys_devcon_pic32mx.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/framework/system/devcon/src/sys_devcon_pic32mx.c"
@@ -220,18 +220,18 @@ Invoking: Arm Compiler
  
 >> Compilation failure
 mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_interrupt.obj' failed
-Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c"
-Invoking: Arm Compiler
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c"
- 
->> Compilation failure
-mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.obj' failed
 Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.c"
  
 >> Compilation failure
 mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_tasks.obj' failed
+Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/files" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb"  "../mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.c"
+ 
+>> Compilation failure
+mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/subdir_rules.mk:7: recipe for target 'mcp25xxfd_demo_h2_rel/firmware/src/system_config/mcp2518fd_evb/system_init.obj' failed
 gmake: Target 'all' not remade because of errors.
 
 **** Build Finished ****

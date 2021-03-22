@@ -13,6 +13,10 @@ subdir_rules.mk:7: recipe for target 'final_code.obj' failed
 1 catastrophic error detected in the compilation of "../final_code.c".
 Compilation terminated.
 gmake: *** [final_code.obj] Error 1
+"../driver/mcp25xxfd_driver/spi/spi.c", line 9: fatal error #1965: cannot open source file "inc/hw_ints.h"
+1 catastrophic error detected in the compilation of "../driver/mcp25xxfd_driver/spi/spi.c".
+Compilation terminated.
+gmake: *** [driver/mcp25xxfd_driver/spi/spi.obj] Error 1
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 41: error #20: identifier "uint8_t" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 41: error #20: identifier "SPI_DEFAULT_BUFFER_LENGTH" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 44: error #20: identifier "uint8_t" is undefined
@@ -23,88 +27,96 @@ gmake: *** [final_code.obj] Error 1
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 54: error #20: identifier "ENC_CS_PORT" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 54: error #20: identifier "ENC_CS" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 55: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 61: error #20: identifier "uint8_t" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 61: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 63: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 63: error #20: identifier "ENC_CS_PORT" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 63: error #20: identifier "ENC_CS" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 66: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 72: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 72: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 74: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 75: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 78: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 78: error #20: identifier "cINSTRUCTION_WRITE" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 88: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 88: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 61: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 63: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 63: error #20: identifier "cINSTRUCTION_WRITE" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 66: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 66: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 66: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 67: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 73: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 73: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 75: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 75: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 75: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 78: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 84: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 84: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 86: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 87: error #20: identifier "uint16_t" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 90: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 91: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 94: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 94: error #20: identifier "cINSTRUCTION_WRITE" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 104: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 104: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 104: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 106: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 107: error #20: identifier "REG_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 108: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 111: error #20: identifier "cINSTRUCTION_WRITE" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 125: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 125: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 127: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 130: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 130: error #20: identifier "cINSTRUCTION_READ" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 134: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 134: error #20: identifier "ENC_CS_PORT" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 134: error #20: identifier "ENC_CS" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 135: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 137: error #20: identifier "byte" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 137: error #29: expected an expression
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 144: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 144: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 144: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 146: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 147: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 148: error #20: identifier "int8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 151: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 151: error #20: identifier "cINSTRUCTION_READ" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 155: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 155: error #20: identifier "ENC_CS_PORT" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 155: error #20: identifier "ENC_CS" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 156: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 166: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 166: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 168: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 169: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 170: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 171: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 174: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 174: error #20: identifier "cINSTRUCTION_READ" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 177: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 177: error #20: identifier "ENC_CS_PORT" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 177: error #20: identifier "ENC_CS" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 178: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 181: error #20: identifier "j" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 181: error #20: identifier "nBytes" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 190: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 190: error #66: expected a ";"
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 197: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 197: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 199: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 200: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 201: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 204: error #20: identifier "uint8_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 204: error #20: identifier "cINSTRUCTION_READ" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 207: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 207: error #20: identifier "ENC_CS_PORT" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 207: error #20: identifier "ENC_CS" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 208: warning #225-D: function "spi_send" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 216: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 216: error #20: identifier "uint32_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 216: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 218: error #20: identifier "uint16_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 219: error #20: identifier "REG_t" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 220: error #20: identifier "uint16_t" is undefined
-79 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c".
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 90: error #20: identifier "cINSTRUCTION_WRITE" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 100: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 100: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 102: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 103: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 106: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 106: error #20: identifier "cINSTRUCTION_WRITE" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 116: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 116: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 116: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 118: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 119: error #20: identifier "REG_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 120: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 123: error #20: identifier "cINSTRUCTION_WRITE" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 137: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 137: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 139: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 142: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 142: error #20: identifier "cINSTRUCTION_READ" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 146: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 146: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 146: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 147: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 149: error #20: identifier "byte" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 149: error #29: expected an expression
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 156: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 156: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 156: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 158: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 159: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 160: error #20: identifier "int8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 163: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 163: error #20: identifier "cINSTRUCTION_READ" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 167: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 167: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 167: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 168: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 178: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 178: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 180: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 181: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 182: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 183: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 186: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 186: error #20: identifier "cINSTRUCTION_READ" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 189: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 189: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 189: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 190: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 193: error #20: identifier "j" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 193: error #20: identifier "nBytes" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 202: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 202: error #66: expected a ";"
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 209: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 209: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 211: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 212: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 213: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 216: error #20: identifier "uint8_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 216: error #20: identifier "cINSTRUCTION_READ" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 219: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 219: error #20: identifier "ENC_CS_PORT" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 219: error #20: identifier "ENC_CS" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 220: warning #225-D: function "spi_send" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 228: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 228: error #20: identifier "uint32_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 228: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 230: error #20: identifier "uint16_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 231: error #20: identifier "REG_t" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c", line 232: error #20: identifier "uint16_t" is undefined
+85 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c".
 gmake: *** [driver/mcp25xxfd_driver/canfdspi/SPI_interface.obj] Error 1
 "../driver/mcp25xxfd_driver/canfdspi/bittimiong.c", line 15: error #20: identifier "CAN_BITTIME_SETUP" is undefined
 "../driver/mcp25xxfd_driver/canfdspi/bittimiong.c", line 15: error #20: identifier "CAN_SSP_MODE" is undefined
@@ -323,56 +335,6 @@ gmake: *** [driver/mcp25xxfd_driver/canfdspi/bittimiong.obj] Error 1
 "../driver/mcp25xxfd_driver/canfdspi/gpios.c", line 269: warning #225-D: function "DRV_CANFDSPI_WriteByte" declared implicitly
 72 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/gpios.c".
 gmake: *** [driver/mcp25xxfd_driver/canfdspi/gpios.obj] Error 1
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 220: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 246: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 271: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 277: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 283: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 293: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 353: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 404: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 425: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 436: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 445: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 452: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 461: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 582: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 615: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 624: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 633: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 642: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 707: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 726: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 735: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 744: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 753: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 1109: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 75: warning #225-D: function "SPI_Write_Word" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 82: error #20: identifier "SPI_DEFAULT_BUFFER_LENGTH" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 94: warning #225-D: function "SPI_Write_Word_Array" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 127: warning #225-D: function "SPI_Read_Byte" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 127: error #20: identifier "d" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 134: error #20: identifier "index" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 135: warning #994-D: missing return statement at end of non-void function "CANFD_OperationModeSelect"
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 145: warning #225-D: function "SPI_Read_Byte" declared implicitly
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 148: error #66: expected a ";"
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 205: error #167: too few arguments in function call
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 188: warning #179-D: variable "spiTransferError" was declared but never referenced
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 224: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_FilterObjectConfigure(CANFDSPI_MODULE_ID, CAN_FILTER, CAN_FILTEROBJ_ID *)" (declared at line 384 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 235: error #20: identifier "index" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 240: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_FilterMaskConfigure(CANFDSPI_MODULE_ID, CAN_FILTER, CAN_MASKOBJ_ID *)" (declared at line 393 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 251: error #20: identifier "index" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 256: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 256: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_FilterToFifoLink(CANFDSPI_MODULE_ID, CAN_FILTER, <error-type>, bool)" (declared at line 403 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 273: error #20: identifier "index" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 332: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CANFDSPI_MODULE_ID, <error-type>, CAN_RX_FIFO_CONFIG *)" (declared at line 424 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 350: error #20: identifier "channel" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 352: error #20: identifier "index" is undefined
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 353: warning #994-D: missing return statement at end of non-void function "DRV_CANFDSPI_ReceiveChannelConfigure"
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 334: warning #179-D: variable "spiTransferError" was declared but never referenced
-"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 368: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
-40 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/init_conf.c".
-gmake: *** [driver/mcp25xxfd_driver/canfdspi/init_conf.obj] Error 1
 "../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: warning #225-D: function "MAP_GPIOPinWrite" declared implicitly
 "../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: error #20: identifier "ENC_CS_PORT" is undefined
 "../driver/mcp25xxfd_driver/spi/drv_spi.c", line 56: error #20: identifier "ENC_CS" is undefined
@@ -414,10 +376,55 @@ gmake: *** [driver/mcp25xxfd_driver/canfdspi/init_conf.obj] Error 1
 "../driver/mcp25xxfd_driver/spi/drv_spi.c", line 215: warning #225-D: function "spi_send" declared implicitly
 19 errors detected in the compilation of "../driver/mcp25xxfd_driver/spi/drv_spi.c".
 gmake: *** [driver/mcp25xxfd_driver/spi/drv_spi.obj] Error 1
-"../driver/mcp25xxfd_driver/spi/spi.c", line 9: fatal error #1965: cannot open source file "inc/hw_ints.h"
-1 catastrophic error detected in the compilation of "../driver/mcp25xxfd_driver/spi/spi.c".
-Compilation terminated.
-gmake: *** [driver/mcp25xxfd_driver/spi/spi.obj] Error 1
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 220: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 246: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 271: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 277: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 283: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 293: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 353: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 404: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 425: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 436: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 445: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 452: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 461: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 582: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 615: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 624: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 633: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 642: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 707: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 726: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 735: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 744: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 753: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 1109: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 75: warning #225-D: function "SPI_Write_Word" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 82: error #20: identifier "SPI_DEFAULT_BUFFER_LENGTH" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 94: warning #225-D: function "SPI_Write_Word_Array" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 127: warning #225-D: function "SPI_Read_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 127: error #20: identifier "d" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 134: warning #225-D: function "SPI_Write_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 145: warning #225-D: function "SPI_Read_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 148: error #66: expected a ";"
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 201: warning #225-D: function "SPI_Read_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 201: error #20: identifier "index" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 207: warning #225-D: function "SPI_Write_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 218: warning #225-D: function "SPI_Read_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 218: error #20: identifier "index" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 224: warning #225-D: function "SPI_Write_Byte" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 240: warning #225-D: function "SPI_Write_Word" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 276: warning #225-D: function "SPI_Write_Word" declared implicitly
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 259: warning #179-D: variable "spiTransferError" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 294: error #148: declaration is incompatible with "int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CANFDSPI_MODULE_ID, <error-type>, CAN_RX_FIFO_CONFIG *)" (declared at line 424 of "../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h")
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 312: error #20: identifier "channel" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 314: error #20: identifier "index" is undefined
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 315: warning #994-D: missing return statement at end of non-void function "DRV_CANFDSPI_ReceiveChannelConfigure"
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 296: warning #179-D: variable "spiTransferError" was declared but never referenced
+"../driver/mcp25xxfd_driver/canfdspi/init_conf.c", line 330: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
+33 errors detected in the compilation of "../driver/mcp25xxfd_driver/canfdspi/init_conf.c".
+gmake: *** [driver/mcp25xxfd_driver/canfdspi/init_conf.obj] Error 1
 "/home/mostafa/mostafa/ccs_repos/external fd driver/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 220: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
 "/home/mostafa/mostafa/ccs_repos/external fd driver/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 246: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
 "/home/mostafa/mostafa/ccs_repos/external fd driver/driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h", line 271: error #20: identifier "CAN_FIFO_CHANNEL" is undefined
@@ -449,6 +456,12 @@ gmake: *** [driver/mcp25xxfd_driver/spi/spi.obj] Error 1
 "../mcp25xxfd_demo_h2_rel/firmware/src/app.c", line 642: warning #190-D: enumerated type mixed with another type
 24 errors detected in the compilation of "../mcp25xxfd_demo_h2_rel/firmware/src/app.c".
 gmake: *** [mcp25xxfd_demo_h2_rel/firmware/src/app.obj] Error 1
+Building file: "../driver/mcp25xxfd_driver/spi/spi.c"
+Invoking: Arm Compiler
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/spi/spi.d_raw" --obj_directory="driver/mcp25xxfd_driver/spi"  "../driver/mcp25xxfd_driver/spi/spi.c"
+ 
+>> Compilation failure
+driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/spi/spi.obj' failed
 Building file: "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/canfdspi/SPI_interface.d_raw" --obj_directory="driver/mcp25xxfd_driver/canfdspi"  "../driver/mcp25xxfd_driver/canfdspi/SPI_interface.c"
@@ -467,24 +480,18 @@ Invoking: Arm Compiler
  
 >> Compilation failure
 driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/canfdspi/gpios.obj' failed
-Building file: "../driver/mcp25xxfd_driver/canfdspi/init_conf.c"
-Invoking: Arm Compiler
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/canfdspi/init_conf.d_raw" --obj_directory="driver/mcp25xxfd_driver/canfdspi"  "../driver/mcp25xxfd_driver/canfdspi/init_conf.c"
- 
->> Compilation failure
-driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/canfdspi/init_conf.obj' failed
 Building file: "../driver/mcp25xxfd_driver/spi/drv_spi.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/spi/drv_spi.d_raw" --obj_directory="driver/mcp25xxfd_driver/spi"  "../driver/mcp25xxfd_driver/spi/drv_spi.c"
  
 >> Compilation failure
 driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/spi/drv_spi.obj' failed
-Building file: "../driver/mcp25xxfd_driver/spi/spi.c"
+Building file: "../driver/mcp25xxfd_driver/canfdspi/init_conf.c"
 Invoking: Arm Compiler
-"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/spi/spi.d_raw" --obj_directory="driver/mcp25xxfd_driver/spi"  "../driver/mcp25xxfd_driver/spi/spi.c"
+"/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="driver/mcp25xxfd_driver/canfdspi/init_conf.d_raw" --obj_directory="driver/mcp25xxfd_driver/canfdspi"  "../driver/mcp25xxfd_driver/canfdspi/init_conf.c"
  
 >> Compilation failure
-driver/mcp25xxfd_driver/spi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/spi/spi.obj' failed
+driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk:7: recipe for target 'driver/mcp25xxfd_driver/canfdspi/init_conf.obj' failed
 Building file: "../mcp25xxfd_demo_h2_rel/firmware/src/app.c"
 Invoking: Arm Compiler
 "/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="/home/mostafa/mostafa/ccs_repos/external fd driver" --include_path="/home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="mcp25xxfd_demo_h2_rel/firmware/src/app.d_raw" --obj_directory="mcp25xxfd_demo_h2_rel/firmware/src"  "../mcp25xxfd_demo_h2_rel/firmware/src/app.c"
