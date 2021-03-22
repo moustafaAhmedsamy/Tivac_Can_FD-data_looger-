@@ -20,55 +20,7 @@
 // *****************************************************************************
 // Section: Configuration
 
-void  DRV_CANFDSPI_Configure(CAN_CONFIG* config)
-{
-    REG_CiCON ciCon;
-    int8_t spiTransferError = 0;
 
-    ciCon.word = canControlResetValues[cREGADDR_CiCON / 4];
-
-    ciCon.bF.DNetFilterCount = config->DNetFilterCount;
-    ciCon.bF.IsoCrcEnable = config->IsoCrcEnable;
-    ciCon.bF.ProtocolExceptionEventDisable = config->ProtocolExpectionEventDisable;
-    ciCon.bF.WakeUpFilterEnable = config->WakeUpFilterEnable;
-    ciCon.bF.WakeUpFilterTime = config->WakeUpFilterTime;
-    ciCon.bF.BitRateSwitchDisable = config->BitRateSwitchDisable;
-    ciCon.bF.RestrictReTxAttempts = config->RestrictReTxAttempts;
-    ciCon.bF.EsiInGatewayMode = config->EsiInGatewayMode;
-    ciCon.bF.SystemErrorToListenOnly = config->SystemErrorToListenOnly;
-    ciCon.bF.StoreInTEF = config->StoreInTEF;
-    ciCon.bF.TXQEnable = config->TXQEnable;
-    ciCon.bF.TxBandWidthSharing = config->TxBandWidthSharing;
-
-    spiTransferError = SPI_Write_Word(cREGADDR_CiCON, ciCon.word);
-
-}
-
-
-
-
-
-
-int8_t DRV_CANFDSPI_ConfigureObjectReset(CAN_CONFIG* config)
-{
-    REG_CiCON ciCon;
-    ciCon.word = canControlResetValues[cREGADDR_CiCON / 4];
-
-    config->DNetFilterCount = ciCon.bF.DNetFilterCount;
-    config->IsoCrcEnable = ciCon.bF.IsoCrcEnable;
-    config->ProtocolExpectionEventDisable = ciCon.bF.ProtocolExceptionEventDisable;
-    config->WakeUpFilterEnable = ciCon.bF.WakeUpFilterEnable;
-    config->WakeUpFilterTime = ciCon.bF.WakeUpFilterTime;
-    config->BitRateSwitchDisable = ciCon.bF.BitRateSwitchDisable;
-    config->RestrictReTxAttempts = ciCon.bF.RestrictReTxAttempts;
-    config->EsiInGatewayMode = ciCon.bF.EsiInGatewayMode;
-    config->SystemErrorToListenOnly = ciCon.bF.SystemErrorToListenOnly;
-    config->StoreInTEF = ciCon.bF.StoreInTEF;
-    config->TXQEnable = ciCon.bF.TXQEnable;
-    config->TxBandWidthSharing = ciCon.bF.TxBandWidthSharing;
-
-    return 0;
-}
 //************************************************************************************************************************************************
 
 //************************************************************************************************************************************************
@@ -91,81 +43,6 @@ int8_t DRV_CANFDSPI_ConfigureObjectReset(CAN_CONFIG* config)
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Operating mode
-
-int8_t DRV_CANFDSPI_OperationModeSelect(CANFDSPI_MODULE_ID index,
-        CAN_OPERATION_MODE opMode)
-{
-    uint8_t d = 0;
-    int8_t spiTransferError = 0;
-
-    // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiCON + 3, &d);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    d &= ~0x07;
-    d |= opMode;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiCON + 3, d);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
-
-CAN_OPERATION_MODE DRV_CANFDSPI_OperationModeGet(CANFDSPI_MODULE_ID index)
-{
-    uint8_t d = 0;
-    CAN_OPERATION_MODE mode = CAN_INVALID_MODE;
-    int8_t spiTransferError = 0;
-
-    // Read Opmode
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiCON + 2, &d);
-    if (spiTransferError) {
-        return CAN_INVALID_MODE;
-    }
-
-    // Get Opmode bits
-    d = (d >> 5) & 0x7;
-
-    // Decode Opmode
-    switch (d) {
-        case CAN_NORMAL_MODE:
-            mode = CAN_NORMAL_MODE;
-            break;
-        case CAN_SLEEP_MODE:
-            mode = CAN_SLEEP_MODE;
-            break;
-        case CAN_INTERNAL_LOOPBACK_MODE:
-            mode = CAN_INTERNAL_LOOPBACK_MODE;
-            break;
-        case CAN_EXTERNAL_LOOPBACK_MODE:
-            mode = CAN_EXTERNAL_LOOPBACK_MODE;
-            break;
-        case CAN_LISTEN_ONLY_MODE:
-            mode = CAN_LISTEN_ONLY_MODE;
-            break;
-        case CAN_CONFIGURATION_MODE:
-            mode = CAN_CONFIGURATION_MODE;
-            break;
-        case CAN_CLASSIC_MODE:
-            mode = CAN_CLASSIC_MODE;
-            break;
-        case CAN_RESTRICTED_MODE:
-            mode = CAN_RESTRICTED_MODE;
-            break;
-        default:
-            mode = CAN_INVALID_MODE;
-            break;
-    }
-
-    return mode;
-}
 
 //************************************************************************************************************************************************
 
@@ -192,42 +69,7 @@ CAN_OPERATION_MODE DRV_CANFDSPI_OperationModeGet(CANFDSPI_MODULE_ID index)
 // *****************************************************************************
 // Section: CAN Transmit
 
-void DRV_CANFDSPI_TransmitFIOFConfigure( CAN_FIFO_INDEX fifo_index, CAN_TX_FIFO_CONFIG* config)
-{
-    int8_t spiTransferError = 0;
-    uint16_t a = 0;
 
-    // Setup FIFO ,this container is union
-    REG_CiFIFOCON ciFifoCon;
-    ciFifoCon.word = canFifoResetValues[0]; // reseting the values of the union before writing
-
-    ciFifoCon.txBF.TxEnable = 1;
-    ciFifoCon.txBF.FifoSize = config->FifoSize;
-    ciFifoCon.txBF.PayLoadSize = config->PayLoadSize;
-    ciFifoCon.txBF.TxAttempts = config->TxAttempts;
-    ciFifoCon.txBF.TxPriority = config->TxPriority;
-    ciFifoCon.txBF.RTREnable = config->RTREnable;
-
-    a = cREGADDR_CiFIFOCON + (fifo_index * CiFIFO_OFFSET);
-
-    // this container is union , so all the writes modyied also the word member
-    DRV_CANFDSPI_WriteWord( a, ciFifoCon.word);
-
-}
-
-int8_t DRV_CANFDSPI_TransmitFIOFConfigureObjectReset(CAN_TX_FIFO_CONFIG* config)
-{
-    REG_CiFIFOCON ciFifoCon;
-    ciFifoCon.word = canFifoResetValues[0];
-
-    config->RTREnable = ciFifoCon.txBF.RTREnable;
-    config->TxPriority = ciFifoCon.txBF.TxPriority;
-    config->TxAttempts = ciFifoCon.txBF.TxAttempts;
-    config->FifoSize = ciFifoCon.txBF.FifoSize;
-    config->PayLoadSize = ciFifoCon.txBF.PayLoadSize;
-
-    return 0;
-}
 
 int8_t DRV_CANFDSPI_TransmitQueueConfigure(CANFDSPI_MODULE_ID index,
         CAN_TX_QUEUE_CONFIG* config)
@@ -524,112 +366,6 @@ int8_t DRV_CANFDSPI_TransmitAbortAll(CANFDSPI_MODULE_ID index)
 
 //************************************************************************************************************************************************
 
-// filter
-int8_t DRV_CANFDSPI_FilterObjectConfigure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id)
-{
-    uint16_t a;
-    REG_CiFLTOBJ fObj;
-    int8_t spiTransferError = 0;
-
-    // Setup
-    fObj.word = 0;
-    fObj.bF = *id;
-    a = cREGADDR_CiFLTOBJ + (filter * CiFILTER_OFFSET);
-
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, fObj.word);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterMaskConfigure(CAN_FILTER filter, CAN_MASKOBJ_ID* mask)
-{
-    uint16_t a;
-    REG_CiMASK mObj;
-    int8_t spiTransferError = 0;
-
-    // Setup
-    mObj.word = 0;
-    mObj.bF = *mask;
-    a = cREGADDR_CiMASK + (filter * CiFILTER_OFFSET);
-
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, mObj.word);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterToFifoLink( CAN_FILTER filter, CAN_FIFO_CHANNEL channel, bool enable)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Enable
-    if (enable) {
-        fCtrl.bF.Enable = 1;
-    } else {
-        fCtrl.bF.Enable = 0;
-    }
-
-    // Link
-    fCtrl.bF.BufferPointer = channel;
-    a = cREGADDR_CiFLTCON + filter;
-
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterEnable(CANFDSPI_MODULE_ID index, CAN_FILTER filter)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Read
-    a = cREGADDR_CiFLTCON + filter;
-
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &fCtrl.byte);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    fCtrl.bF.Enable = 1;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterDisable(CANFDSPI_MODULE_ID index, CAN_FILTER filter)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Read
-    a = cREGADDR_CiFLTCON + filter;
-
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &fCtrl.byte);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    fCtrl.bF.Enable = 0;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
 
 
 //************************************************************************************************************************************************
@@ -652,63 +388,6 @@ int8_t DRV_CANFDSPI_FilterDisable(CANFDSPI_MODULE_ID index, CAN_FILTER filter)
 
 //************************************************************************************************************************************************
 
-// RECIVE
-int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config)
-{
-    int8_t spiTransferError = 0;
-    uint16_t a = 0;
-
-    if (buffer_index == CAN_TXQUEUE_CH0) {
-        return -100;
-    }
-
-    // Setup FIFO
-    REG_CiFIFOCON ciFifoCon;
-    ciFifoCon.word = canFifoResetValues[0];
-
-    ciFifoCon.rxBF.TxEnable = 0;
-    ciFifoCon.rxBF.FifoSize = config->FifoSize;
-    ciFifoCon.rxBF.PayLoadSize = config->PayLoadSize;
-    ciFifoCon.rxBF.RxTimeStampEnable = config->RxTimeStampEnable;
-
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
-
-    DRV_CANFDSPI_WriteWord(index, a, ciFifoCon.word);
-}
-
-int8_t DRV_CANFDSPI_ReceiveChannelConfigureObjectReset(CAN_RX_FIFO_CONFIG* config)
-{
-    REG_CiFIFOCON ciFifoCon;
-    ciFifoCon.word = canFifoResetValues[0];
-
-    config->FifoSize = ciFifoCon.rxBF.FifoSize;
-    config->PayLoadSize = ciFifoCon.rxBF.PayLoadSize;
-    config->RxTimeStampEnable = ciFifoCon.rxBF.RxTimeStampEnable;
-
-    return 0;
-}
-
-int8_t DRV_CANFDSPI_ReceiveChannelStatusGet(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_RX_FIFO_STATUS* status)
-{
-    uint16_t a;
-    REG_CiFIFOSTA ciFifoSta;
-    int8_t spiTransferError = 0;
-
-    // Read
-    ciFifoSta.word = 0;
-    a = cREGADDR_CiFIFOSTA + (channel * CiFIFO_OFFSET);
-
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &ciFifoSta.byte[0]);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Update data
-    *status = (CAN_RX_FIFO_STATUS) (ciFifoSta.byte[0] & 0x0F);
-
-    return spiTransferError;
-}
 
 int8_t DRV_CANFDSPI_ReceiveMessageGet(CAN_FIFO_INDEX buffer_index, CAN_RX_MSGOBJ* rxObj,uint8_t *rxd, uint8_t nBytes)
 {
