@@ -665,4 +665,106 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP
     SPI_Write_Word(cREGADDR_CiTDC, ciTdc.word);
 
 }
+// Section: Time Stamp
 
+int8_t DRV_CANFDSPI_TimeStampEnable(CANFDSPI_MODULE_ID index)
+{
+    int8_t spiTransferError = 0;
+    uint8_t d = 0;
+
+    // Read
+    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
+    if (spiTransferError) {
+        return -1;
+    }
+
+    // Modify
+    d |= 0x01;
+
+    // Write
+    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
+    if (spiTransferError) {
+        return -2;
+    }
+
+    return spiTransferError;
+}
+
+int8_t DRV_CANFDSPI_TimeStampDisable(CANFDSPI_MODULE_ID index)
+{
+    int8_t spiTransferError = 0;
+    uint8_t d = 0;
+
+    // Read
+    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
+    if (spiTransferError) {
+        return -1;
+    }
+
+    // Modify
+    d &= 0x06;
+
+    // Write
+    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
+    if (spiTransferError) {
+        return -2;
+    }
+
+    return spiTransferError;
+}
+
+int8_t DRV_CANFDSPI_TimeStampGet(CANFDSPI_MODULE_ID index, uint32_t* ts)
+{
+    int8_t spiTransferError = 0;
+
+    // Read
+    spiTransferError = DRV_CANFDSPI_ReadWord(index, cREGADDR_CiTBC, ts);
+
+    return spiTransferError;
+}
+
+int8_t DRV_CANFDSPI_TimeStampSet(CANFDSPI_MODULE_ID index, uint32_t ts)
+{
+    int8_t spiTransferError = 0;
+
+    // Write
+    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiTBC, ts);
+
+    return spiTransferError;
+}
+
+int8_t DRV_CANFDSPI_TimeStampModeConfigure(CANFDSPI_MODULE_ID index,
+        CAN_TS_MODE mode)
+{
+    int8_t spiTransferError = 0;
+    uint8_t d = 0;
+
+    // Read
+    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
+    if (spiTransferError) {
+        return -1;
+    }
+
+    // Modify
+    d &= 0x01;
+    d |= mode << 1;
+
+    // Write
+    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
+    if (spiTransferError) {
+        return -2;
+    }
+
+    return spiTransferError;
+}
+
+int8_t DRV_CANFDSPI_TimeStampPrescalerSet(CANFDSPI_MODULE_ID index,
+        uint16_t ps)
+{
+    int8_t spiTransferError = 0;
+
+    // Write
+    spiTransferError = DRV_CANFDSPI_WriteHalfWord(index, cREGADDR_CiTSCON, ps);
+
+    return spiTransferError;
+}

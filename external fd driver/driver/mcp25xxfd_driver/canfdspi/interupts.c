@@ -450,7 +450,7 @@ void CANFD_Receive_fifo_Reset(CAN_FIFO_INDEX buffer_index)
     uint16_t a = 0;
     REG_CiFIFOCON ciFifoCon;
 
-    // Address and data
+    // Address aSPI_Read_Bytend data
     a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
     ciFifoCon.word = 0;
     ciFifoCon.rxBF.FRESET = 1;
@@ -473,5 +473,86 @@ void CANFD_Receive_Fifo_Increment(CAN_FIFO_INDEX buffer_index)
     SPI_Write_Byte( a, ciFifoCon.byte[1]);
 
 }
+void  CANFD_Receive_Channel_Status_Get(CAN_FIFO_INDEX buffer_index , CAN_RX_FIFO_STATUS* status)
+{
+    uint16_t a;
+    REG_CiFIFOSTA ciFifoSta;
+    int8_t spiTransferError = 0;
 
+    // Read
+    ciFifoSta.word = 0;
+    a = cREGADDR_CiFIFOSTA + (buffer_index * CiFIFO_OFFSET);
 
+    SPI_Read_Byte(index, a, &ciFifoSta.byte[0]);
+
+    // Update data
+    *status = (CAN_RX_FIFO_STATUS) (ciFifoSta.byte[0] & 0x0F);
+
+}
+
+// Section: Error Handling
+
+void CANFD_Error_TX_Counter_Get(uint8_t* tec)
+{
+    uint16_t a = 0;
+    // Read Error count
+    a = cREGADDR_CiTREC + 1;
+    SPI_Read_Byte(index, a, tec);
+}
+void CANFD_Error_RX_Counter_Get(uint8_t* rec)
+{
+    uint16_t a = 0;
+    // Read Error count
+    a = cREGADDR_CiTREC;
+
+    SPI_Read_Byte(index, a, rec);
+}
+/*
+ * TXBO TXBP RXBP TXWARN RXWARN EWARN
+ */
+void DRV_CANFDSPI_Error_State_Get(CAN_ERROR_STATE* flags)
+{
+    uint16_t a = 0;
+    // Read Error state
+    a = cREGADDR_CiTREC + 2;
+    uint8_t f = 0;
+
+    SPI_Read_Byte(index, a, &f);
+
+    // Update data
+    *flags = (CAN_ERROR_STATE) (f & CAN_ERROR_ALL);
+
+}
+
+void CANFD_Bus_Diagnostics_Get(CAN_BUS_DIAGNOSTIC* bd)
+{
+    uint16_t a = 0;
+
+    // Read diagnostic registers all in one shot
+    a = cREGADDR_CiBDIAG0;
+    uint32_t w[2];
+
+    SPI_Read_Word_Array(a, w, 2);
+    // Update data
+    CAN_BUS_DIAGNOSTIC b;
+    b.word[0] = w[0];
+    b.word[1] = w[1] & 0x0000ffff;
+    b.word[2] = (w[1] >> 16) & 0x0000ffff;
+    *bd = b;
+
+}
+
+void DRV_CANFDSPI_BusDiagnosticsClear(CANFDSPI_MODULE_ID index)
+{
+    int8_t spiTransferError = 0;
+    uint8_t a = 0;
+
+    // Clear diagnostic registers all in one shot
+    a = cREGADDR_CiBDIAG0;
+    uint32_t w[2];
+    w[0] = 0;
+    w[1] = 0;
+
+    SPI_Write_Word_Array(index, a, w, 2);
+
+}

@@ -184,45 +184,6 @@ int8_t DRV_CANFDSPI_TransmitChannelFlush(CANFDSPI_MODULE_ID index,
     return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_TransmitChannelStatusGet(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel, CAN_TX_FIFO_STATUS* status)
-{
-    uint16_t a = 0;
-    uint32_t sta = 0;
-    uint32_t fifoReg[2];
-    REG_CiFIFOSTA ciFifoSta;
-    REG_CiFIFOCON ciFifoCon;
-    int8_t spiTransferError = 0;
-
-    // Get FIFO registers
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
-
-    spiTransferError = DRV_CANFDSPI_ReadWordArray(index, a, fifoReg, 2);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Update data
-    ciFifoCon.word = fifoReg[0];
-    ciFifoSta.word = fifoReg[1];
-
-    // Update status
-    sta = ciFifoSta.byte[0];
-
-    if (ciFifoCon.txBF.TxRequest) {
-        sta |= CAN_TX_FIFO_TRANSMITTING;
-    }
-
-    *status = (CAN_TX_FIFO_STATUS) (sta & CAN_TX_FIFO_STATUS_MASK);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_TransmitChannelReset(CANFDSPI_MODULE_ID index,
-        CAN_FIFO_CHANNEL channel)
-{
-    return DRV_CANFDSPI_ReceiveChannelReset(index, channel);
-}
 
 int8_t DRV_CANFDSPI_TransmitFifoUpdate(CAN_FIFO_INDEX fifo_index, bool flush)
 {
