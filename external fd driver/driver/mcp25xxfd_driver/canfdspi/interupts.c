@@ -347,8 +347,6 @@ void CANFD_Tef_Increment(void)
     SPI_Write_Byte(a, ciTefCon.byte[1]);
 
 }
-//SPI_Read_Byte
-//SPI_Write_Byte
 void CANFD_Receive_Message_Get(CAN_FIFO_INDEX buffer_index, CAN_RX_MSGOBJ* rxObj,uint8_t *rxd, uint8_t nBytes)
 {
     uint8_t n = 0;
