@@ -304,3 +304,27 @@ void CANFD_ReceiveChannelConfigureObjectReset(CAN_RX_FIFO_CONFIG* config)
     config->PayLoadSize = ciFifoCon.rxBF.PayLoadSize;
     config->RxTimeStampEnable = ciFifoCon.rxBF.RxTimeStampEnable;
 }
+
+void CANFD_Tef_Configure(CAN_TEF_CONFIG* config)
+{
+    // Setup FIFO
+    REG_CiTEFCON ciTefCon;
+    ciTefCon.word = canFifoResetValues[0];
+
+    ciTefCon.bF.FifoSize = config->FifoSize;
+    ciTefCon.bF.TimeStampEnable = config->TimeStampEnable;
+
+    SPI_Write_Word(cREGADDR_CiTEFCON, ciTefCon.word);
+}
+
+void CANFD_Tef_Configure_Object_Reset(CAN_TEF_CONFIG* config)
+{
+    REG_CiTEFCON ciTefCon;
+    ciTefCon.word = canFifoResetValues[0];
+
+    config->FifoSize = ciTefCon.bF.FifoSize;
+    config->TimeStampEnable = ciTefCon.bF.TimeStampEnable;
+
+}
+
+

@@ -229,3 +229,123 @@ void CANFD_Tef_Interrupt_Enable(CAN_TEF_FIFO_EVENT flags)
     // Write
     SPI_Write_Byte( a, ciTefCon.byte[0]);
 }
+
+void CANFD_Tef_Status_Get(CANFDSPI_MODULE_ID index,CAN_TEF_FIFO_STATUS* status)
+{
+    uint16_t a = 0;
+
+    // Read
+    REG_CiTEFSTA ciTefSta;
+    ciTefSta.word = 0;
+    a = cREGADDR_CiTEFSTA;
+
+    DRV_CANFDSPI_ReadByte(a, &ciTefSta.byte[0]);
+
+    // Update data
+    *status = (CAN_TEF_FIFO_STATUS) (ciTefSta.byte[0] & CAN_TEF_FIFO_STATUS_MASK);
+}
+
+void CANFD_Tef_Message_Get(CAN_TEF_MSGOBJ* tefObj)
+{
+    uint16_t a = 0;
+    uint32_t fifoReg[3];
+    uint8_t n = 0;
+
+    // Get FIFO registers
+    a = cREGADDR_CiTEFCON;
+
+    DRV_CANFDSPI_ReadWordArray(a, fifoReg, 3);
+
+    // Get control
+    REG_CiTEFCON ciTefCon;
+    ciTefCon.word = fifoReg[0];
+
+    // Get status
+    __attribute__((unused)) REG_CiTEFSTA ciTefSta;
+    ciTefSta.word = fifoReg[1];
+
+    // Get address
+    REG_CiFIFOUA ciTefUa;
+    ciTefUa.word = fifoReg[2];
+
+    a = ciTefUa.bF.UserAddress;
+
+    a += cRAMADDR_START;
+
+    // Number of bytes to read
+    n = 8; // 8 header bytes
+
+    if (ciTefCon.bF.TimeStampEnable)
+    {
+        n += 4;  // Add 4 time stamp bytes
+    }
+
+    // Read rxObj using one access
+    uint8_t ba[12];
+
+    SPI_Read_Byte_Array(a, ba, n);
+
+    // Assign message header
+    REG_t myReg;
+
+    myReg.byte[0] = ba[0];
+    myReg.byte[1] = ba[1];
+    myReg.byte[2] = ba[2];
+    myReg.byte[3] = ba[3];
+    tefObj->word[0] = myReg.word;
+
+    myReg.byte[0] = ba[4];
+    myReg.byte[1] = ba[5];
+    myReg.byte[2] = ba[6];
+    myReg.byte[3] = ba[7];
+    tefObj->word[1] = myReg.word;
+
+    if (ciTefCon.bF.TimeStampEnable) {
+        myReg.byte[0] = ba[8];
+        myReg.byte[1] = ba[9];
+        myReg.byte[2] = ba[10];
+        myReg.byte[3] = ba[11];
+        tefObj->word[2] = myReg.word;
+    } else {
+        tefObj->word[2] = 0;
+    }
+
+    // Set UINC ,increment
+    CANFD_Tef_Increment();
+}
+/*
+ *  FIFO will be reset when bit is set, cleared by hardware when FIFO was reset. The user should
+ *  wait for this bit to clear before taking any action.
+ */
+
+void CANFD_Tef_Reset(void)
+{
+    int8_t spiTransferError = 0;
+    uint16_t a = 0;
+
+    // Set FRESET
+    a = cREGADDR_CiTEFCON + 1;
+    REG_CiTEFCON ciTefCon;
+    ciTefCon.word = 0;
+    ciTefCon.bF.FRESET = 1;
+
+    // Write byte
+    SPI_Write_Byte(index, a, ciTefCon.byte[1]);
+
+}
+
+void CANFD_Tef_Increment(void)
+{
+    uint16_t a = 0;
+    // Set UINC
+    a = cREGADDR_CiTEFCON + 1;
+    REG_CiTEFCON ciTefCon;
+    ciTefCon.word = 0;
+    ciTefCon.bF.UINC = 1;
+
+    // Write byte
+    SPI_Write_Byte(a, ciTefCon.byte[1]);
+
+}
+//SPI_Read_Byte
+//SPI_Write_Byte
