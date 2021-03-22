@@ -221,112 +221,72 @@ void CANFD_TransmitFIOFConfigureObjectReset(CAN_TX_FIFO_CONFIG* config)
 
 
 // filter
-int8_t DRV_CANFDSPI_FilterObjectConfigure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id)
+/*
+ * filter is index 1>32
+ * id is the identifier
+ */
+void CANFD_Filter_Enable(CAN_FILTER filter)
 {
     uint16_t a;
-    REG_CiFLTOBJ fObj;
-    int8_t spiTransferError = 0;
+    REG_CiFLTCON_BYTE fCtrl;
 
-    // Setup
+    // Read
+    a = cREGADDR_CiFLTCON + filter;
+    SPI_Read_Byte(index, a, &fCtrl.byte);
+
+    // Modify ,set the en bit
+    fCtrl.bF.Enable = 1;
+
+    // Write
+    SPI_Write_Byte(a, fCtrl.byte);
+
+}
+
+void CANFD_Filter_Disable(CAN_FILTER filter)
+{
+    uint16_t a;
+    REG_CiFLTCON_BYTE fCtrl;
+
+    // Read
+    a = cREGADDR_CiFLTCON + filter;
+    SPI_Read_Byte(index, a, &fCtrl.byte);
+
+    // Modify ,set the en bit
+    fCtrl.bF.Enable = 0;
+
+    // Write
+    SPI_Write_Byte(a, fCtrl.byte);
+
+}
+
+void CANFD_Filter_Mask_Objects_Configure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id, CAN_MASKOBJ_ID* mask , CAN_FIFO_INDEX fifo_index)
+{
+    uint16_t a =0;
+    REG_CiFLTOBJ fObj;
+    REG_CiMASK mObj;
+    REG_CiFLTCON_BYTE fCtrl;
+
+    // Setup filter
     fObj.word = 0;
     fObj.bF = *id;
     a = cREGADDR_CiFLTOBJ + (filter * CiFILTER_OFFSET);
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, fObj.word);
+    SPI_Write_Word(a, fObj.word);
 
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterMaskConfigure(CAN_FILTER filter, CAN_MASKOBJ_ID* mask)
-{
-    uint16_t a;
-    REG_CiMASK mObj;
-    int8_t spiTransferError = 0;
-
-    // Setup
+    // Setup mask
     mObj.word = 0;
     mObj.bF = *mask;
+    a =0;
     a = cREGADDR_CiMASK + (filter * CiFILTER_OFFSET);
+    SPI_Write_Word(a, mObj.bF);
 
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, a, mObj.word);
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterToFifoLink( CAN_FILTER filter, CAN_FIFO_CHANNEL channel, bool enable)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Enable
-    if (enable) {
-        fCtrl.bF.Enable = 1;
-    } else {
-        fCtrl.bF.Enable = 0;
-    }
-
-    // Link
-    fCtrl.bF.BufferPointer = channel;
+    // Link the fifo
+    fCtrl.bF.BufferPointer = fifo_index;
+    a=0;
     a = cREGADDR_CiFLTCON + filter;
+    SPI_Write_Word(a, fCtrl.byte);
 
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-
-    return spiTransferError;
 }
-
-int8_t DRV_CANFDSPI_FilterEnable(CANFDSPI_MODULE_ID index, CAN_FILTER filter)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Read
-    a = cREGADDR_CiFLTCON + filter;
-
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &fCtrl.byte);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    fCtrl.bF.Enable = 1;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
-
-int8_t DRV_CANFDSPI_FilterDisable(CANFDSPI_MODULE_ID index, CAN_FILTER filter)
-{
-    uint16_t a;
-    REG_CiFLTCON_BYTE fCtrl;
-    int8_t spiTransferError = 0;
-
-    // Read
-    a = cREGADDR_CiFLTCON + filter;
-
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, a, &fCtrl.byte);
-    if (spiTransferError) {
-        return -1;
-    }
-
-    // Modify
-    fCtrl.bF.Enable = 0;
-
-    // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, a, fCtrl.byte);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
-}
-
 
 // RECIVE
 int8_t DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config)

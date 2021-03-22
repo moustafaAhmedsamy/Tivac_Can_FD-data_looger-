@@ -58,6 +58,18 @@ void SPI_Reset(void)
 
 }
 
+void SPI_Write_Byte(uint16_t address , uint8_t byte )
+{
+        spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_WRITE << 4) + ((address >> 8) & 0xF));
+        spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
+
+        MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+        spi_send(spiTransmitBuffer[0]);
+        spi_send(spiTransmitBuffer[1]);
+        spi_send(byte);
+        MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+}
+
 void SPI_Write_Byte_Array(const uint8_t *buf, uint16_t count)
 {
         MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);

@@ -617,9 +617,9 @@ typedef union _REG_CiFLTOBJ {
 //! Mask Object Register
 
 typedef union _REG_CiMASK {
-    CAN_MASKOBJ_ID bF;
-    uint32_t word;
-    uint8_t byte[4];
+    CAN_MASKOBJ_ID bF; // 4 byte -bit field struct
+    uint32_t word;     // to write the byte by one instruction
+    uint8_t byte[4];   // to read/write a byte by byte
 } REG_CiMASK;
 
 
