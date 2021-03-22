@@ -349,3 +349,129 @@ void CANFD_Tef_Increment(void)
 }
 //SPI_Read_Byte
 //SPI_Write_Byte
+void CANFD_Receive_Message_Get(CAN_FIFO_INDEX buffer_index, CAN_RX_MSGOBJ* rxObj,uint8_t *rxd, uint8_t nBytes)
+{
+    uint8_t n = 0;
+    uint8_t i = 0;
+    uint16_t a;
+    uint32_t fifoReg[3];
+    REG_CiFIFOCON ciFifoCon;
+    __attribute__((unused)) REG_CiFIFOSTA ciFifoSta;
+    REG_CiFIFOUA ciFifoUa;
+
+    // Get FIFO registers
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET);
+
+    SPI_Read_Byte_Array( a, fifoReg, 3);
+
+    // Check that it is a receive buffer
+    ciFifoCon.word = fifoReg[0];
+
+    // Get Status
+    ciFifoSta.word = fifoReg[1];
+
+    // Get address
+    ciFifoUa.word = fifoReg[2];
+
+    a = ciFifoUa.bF.UserAddress;
+
+    a += cRAMADDR_START;
+
+    // Number of bytes to read
+    n = nBytes + 8;  // Add 8 header bytes  , first 2 words
+
+    if (ciFifoCon.rxBF.RxTimeStampEnable) {
+        n += 4; // Add 4 time stamp bytes , if it is configured
+    }
+
+    // Make sure we read a multiple of 4 bytes from RAM
+    if (n % 4)
+    {
+        n = n + 4 - (n % 4);
+    }
+
+    // Read rxObj using one access
+    uint8_t ba[MAX_MSG_SIZE];
+
+    if (n > MAX_MSG_SIZE)
+    {
+        n = MAX_MSG_SIZE;
+    }
+
+    SPI_Read_Byte_Array( a, ba, n);
+
+
+    // Assign message header
+    REG_t myReg;
+
+    myReg.byte[0] = ba[0];
+    myReg.byte[1] = ba[1];
+    myReg.byte[2] = ba[2];
+    myReg.byte[3] = ba[3];
+    rxObj->word[0] = myReg.word;
+
+    myReg.byte[0] = ba[4];
+    myReg.byte[1] = ba[5];
+    myReg.byte[2] = ba[6];
+    myReg.byte[3] = ba[7];
+    rxObj->word[1] = myReg.word;
+
+    if (ciFifoCon.rxBF.RxTimeStampEnable)
+    {
+        myReg.byte[0] = ba[8];
+        myReg.byte[1] = ba[9];
+        myReg.byte[2] = ba[10];
+        myReg.byte[3] = ba[11];
+        rxObj->word[2] = myReg.word;
+
+        // Assign message data
+        for (i = 0; i < nBytes; i++)
+        {
+            rxd[i] = ba[i + 12];
+        }
+    }
+    else
+    {
+        rxObj->word[2] = 0;
+
+        // Assign message data
+        for (i = 0; i < nBytes; i++)
+        {
+            rxd[i] = ba[i + 8];
+        }
+    }
+
+    // UINC channel
+    CANFD_Receive_Fifo_Increment(buffer_index);
+}
+
+void CANFD_Receive_fifo_Reset(CAN_FIFO_INDEX buffer_index)
+{
+    uint16_t a = 0;
+    REG_CiFIFOCON ciFifoCon;
+
+    // Address and data
+    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
+    ciFifoCon.word = 0;
+    ciFifoCon.rxBF.FRESET = 1;
+
+    SPI_Write_Byte(a, ciFifoCon.byte[1]);
+}
+
+void CANFD_Receive_Fifo_Increment(CAN_FIFO_INDEX buffer_index)
+{
+    uint16_t a = 0;
+    REG_CiFIFOCON ciFifoCon;
+    int8_t spiTransferError = 0;
+    ciFifoCon.word = 0;
+
+    // Set UINC
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
+    ciFifoCon.rxBF.UINC = 1;
+
+    // Write byte
+    SPI_Write_Byte( a, ciFifoCon.byte[1]);
+
+}
+
+
