@@ -20,10 +20,10 @@ driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/ti/ccs1020/
 driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: ../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_register.h
 driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: ../driver/mcp25xxfd_driver/canfdspi/../spi/drv_spi.h
 driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include/string.h
-driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h
-driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/app.h
+driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h
+driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/app.h
 driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include/stdlib.h
-driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h
+driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h
 
 ../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.c: 
 ../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h: 
@@ -45,7 +45,7 @@ driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.obj: /home/mostafa/mostafa/ccs
 ../driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_register.h: 
 ../driver/mcp25xxfd_driver/canfdspi/../spi/drv_spi.h: 
 /home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include/string.h: 
-/home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h: 
-/home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/app.h: 
+/home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h: 
+/home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/app.h: 
 /home/mostafa/ti/ccs1020/ccs/tools/compiler/ti-cgt-arm_20.2.2.LTS/include/stdlib.h: 
-/home/mostafa/mostafa/ccs_repos/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h: 
+/home/mostafa/mostafa/forked_repo/Tivac_Can_FD-data_looger-/external\ fd\ driver/mcp25xxfd_demo_h2_rel/firmware/src/system_config.h: 
