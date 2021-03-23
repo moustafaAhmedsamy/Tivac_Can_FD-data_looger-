@@ -8,19 +8,17 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./app.obj" \
 "./final_code.obj" \
 "./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
-"./driver/mcp25xxfd_driver/canfdspi/SPI_interface.obj" \
-"./driver/mcp25xxfd_driver/canfdspi/bittimiong.obj" \
-"./driver/mcp25xxfd_driver/canfdspi/functions.obj" \
-"./driver/mcp25xxfd_driver/canfdspi/gpios.obj" \
-"./driver/mcp25xxfd_driver/canfdspi/init_conf.obj" \
-"./driver/mcp25xxfd_driver/spi/drv_spi.obj" \
-"./driver/mcp25xxfd_driver/spi/spi.obj" \
-"./mcp25xxfd_demo_h2_rel/firmware/src/app.obj" \
-"./mcp25xxfd_demo_h2_rel/firmware/src/main.obj" \
-"./mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" \
+"./driver/CanFD/Configuration_&_initialization.obj" \
+"./driver/CanFD/SPI_interface.obj" \
+"./driver/CanFD/Transmation.obj" \
+"./driver/CanFD/bittimiong.obj" \
+"./driver/CanFD/gpios.obj" \
+"./driver/CanFD/interupts.obj" \
+"./driver/spi/spi.obj" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -33,15 +31,11 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include driver/mcp25xxfd_driver/canfdspi/subdir_vars.mk
--include driver/mcp25xxfd_driver/spi/subdir_vars.mk
--include mcp25xxfd_demo_h2_rel/firmware/src/subdir_vars.mk
--include mcp25xxfd_demo_h2_rel/ports/src/subdir_vars.mk
+-include driver/CanFD/subdir_vars.mk
+-include driver/spi/subdir_vars.mk
 -include subdir_rules.mk
--include driver/mcp25xxfd_driver/canfdspi/subdir_rules.mk
--include driver/mcp25xxfd_driver/spi/subdir_rules.mk
--include mcp25xxfd_demo_h2_rel/firmware/src/subdir_rules.mk
--include mcp25xxfd_demo_h2_rel/ports/src/subdir_rules.mk
+-include driver/CanFD/subdir_rules.mk
+-include driver/spi/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -172,8 +166,8 @@ external\ fd\ driver.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "final_code.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/mcp25xxfd_driver/canfdspi/SPI_interface.obj" "driver/mcp25xxfd_driver/canfdspi/bittimiong.obj" "driver/mcp25xxfd_driver/canfdspi/functions.obj" "driver/mcp25xxfd_driver/canfdspi/gpios.obj" "driver/mcp25xxfd_driver/canfdspi/init_conf.obj" "driver/mcp25xxfd_driver/spi/drv_spi.obj" "driver/mcp25xxfd_driver/spi/spi.obj" "mcp25xxfd_demo_h2_rel/firmware/src/app.obj" "mcp25xxfd_demo_h2_rel/firmware/src/main.obj" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.obj" 
-	-$(RM) "final_code.d" "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/mcp25xxfd_driver/canfdspi/SPI_interface.d" "driver/mcp25xxfd_driver/canfdspi/bittimiong.d" "driver/mcp25xxfd_driver/canfdspi/functions.d" "driver/mcp25xxfd_driver/canfdspi/gpios.d" "driver/mcp25xxfd_driver/canfdspi/init_conf.d" "driver/mcp25xxfd_driver/spi/drv_spi.d" "driver/mcp25xxfd_driver/spi/spi.d" "mcp25xxfd_demo_h2_rel/firmware/src/app.d" "mcp25xxfd_demo_h2_rel/firmware/src/main.d" "mcp25xxfd_demo_h2_rel/ports/src/sys_ports_static.d" 
+	-$(RM) "app.obj" "final_code.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/CanFD/Configuration_&_initialization.obj" "driver/CanFD/SPI_interface.obj" "driver/CanFD/Transmation.obj" "driver/CanFD/bittimiong.obj" "driver/CanFD/gpios.obj" "driver/CanFD/interupts.obj" "driver/spi/spi.obj" 
+	-$(RM) "app.d" "final_code.d" "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/CanFD/Configuration_&_initialization.d" "driver/CanFD/SPI_interface.d" "driver/CanFD/Transmation.d" "driver/CanFD/bittimiong.d" "driver/CanFD/gpios.d" "driver/CanFD/interupts.d" "driver/spi/spi.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -47,7 +47,7 @@
 // *****************************************************************************
 // Section: Included Files
 
-#include "drv_canfdspi_defines.h"
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_defines.h>
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

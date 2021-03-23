@@ -53,13 +53,13 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_api.h>
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_register.h>
 #include "app.h"
 //#include "xc.h"
 #include "system_config.h"
 #include <math.h>
 
-#include "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_api.h"
-#include "driver/mcp25xxfd_driver/canfdspi/drv_canfdspi_register.h"
 #include "driver/mcp25xxfd_driver/spi/drv_spi.h"
 
 

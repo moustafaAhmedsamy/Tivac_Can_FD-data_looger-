@@ -112,8 +112,6 @@ PDE_DEPS__QUOTED :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
-driver/mcp25xxfd_driver/canfdspi \
-driver/mcp25xxfd_driver/spi \
-mcp25xxfd_demo_h2_rel/firmware/src \
-mcp25xxfd_demo_h2_rel/ports/src \
+driver/CanFD \
+driver/spi \
 

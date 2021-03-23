@@ -12,23 +12,23 @@
 // *****************************************************************************
 // Section: Oscillator and Bit Time
 
-void DRV_CANFDSPI_BitTimeConfigure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode,CAN_SYSCLK_SPEED clk)
+int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode, CAN_SYSCLK_SPEED clk)
 {
     int8_t spiTransferError = 0;
 
     // Decode clk
     switch (clk) {
         case CAN_SYSCLK_40M:
-            DRV_CANFDSPI_BitTimeConfigureNominal40MHz(index, bitTime);
-            DRV_CANFDSPI_BitTimeConfigureData40MHz(index, bitTime, sspMode);
+            CANFD_Bit_Time_Configure_Nominal_40MHz(index, bitTime);
+            CANFD_Bit_Time_Configure_Data_40MHz(bitTime);
             break;
         case CAN_SYSCLK_20M:
-            DRV_CANFDSPI_BitTimeConfigureNominal20MHz(index, bitTime);
-            spiTransferError = DRV_CANFDSPI_BitTimeConfigureData20MHz(index, bitTime, sspMode);
+            CANFD_Bit_Time_Configure_Nominal_20MHz( bitTime);
+            CANFD_Bit_Time_Configure_Data_20MHz(bitTime);
             break;
         case CAN_SYSCLK_10M:
-            DRV_CANFDSPI_BitTimeConfigureNominal10MHz(index, bitTime);
-            DRV_CANFDSPI_BitTimeConfigureData10MHz(index, bitTime, sspMode);
+            CANFD_Bit_Time_Configure_Nominal_10MHz(bitTime);
+            CANFD_Bit_Time_Configure_Data_10MHz( bitTime);
             break;
         default:
             spiTransferError = -1;
@@ -53,7 +53,7 @@ void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
         case CAN_500K_3M:
         case CAN_500K_4M:
         case CAN_500K_5M:
-        case CAN_500K_6M7:
+        case :
         case CAN_500K_8M:
         case CAN_500K_10M:
             ciNbtcfg.bF.BRP = 0;
@@ -101,12 +101,12 @@ void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
 
 }
 
-void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
     REG_CiTDC ciTdc;
-    //    sspMode;
+
 
     ciDbtcfg.word = canControlResetValues[cREGADDR_CiDBTCFG / 4];
     ciTdc.word = 0;
@@ -275,17 +275,11 @@ void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP_M
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
 
-    // Write Transmitter Delay Compensation
-#ifdef REV_A
-    ciTdc.bF.TDCOffset = 0;
-    ciTdc.bF.TDCValue = 0;
-#endif
-
     SPI_Write_Word( cREGADDR_CiTDC, ciTdc.word);
 
 }
 
-void DRV_CANFDSPI_BitTimeConfigureNominal20MHz(CAN_BITTIME_SETUP bitTime)
+void CANFD_Bit_Time_Configure_Nominal_20MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
@@ -346,7 +340,7 @@ void DRV_CANFDSPI_BitTimeConfigureNominal20MHz(CAN_BITTIME_SETUP bitTime)
     SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
 }
 
-void DRV_CANFDSPI_BitTimeConfigureData20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
@@ -480,18 +474,11 @@ void DRV_CANFDSPI_BitTimeConfigureData20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
-
-    // Write Transmitter Delay Compensation
-#ifdef REV_A
-    ciTdc.bF.TDCOffset = 0;
-    ciTdc.bF.TDCValue = 0;
-#endif
-
     SPI_Write_Word(index, cREGADDR_CiTDC, ciTdc.word);
 
 }
 
-void DRV_CANFDSPI_BitTimeConfigureNominal10MHz(CAN_BITTIME_SETUP bitTime)
+void CANFD_Bit_Time_Configure_Nominal_10MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
@@ -550,15 +537,13 @@ void DRV_CANFDSPI_BitTimeConfigureNominal10MHz(CAN_BITTIME_SETUP bitTime)
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
-
 }
 
-int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
 {
     int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
     REG_CiTDC ciTdc;
-    //    sspMode;
 
     ciDbtcfg.word = canControlResetValues[cREGADDR_CiDBTCFG / 4];
     ciTdc.word = 0;
@@ -655,116 +640,73 @@ int8_t DRV_CANFDSPI_BitTimeConfigureData10MHz(CAN_BITTIME_SETUP bitTime, CAN_SSP
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
-
-    // Write Transmitter Delay Compensation
-#ifdef REV_A
-    ciTdc.bF.TDCOffset = 0;
-    ciTdc.bF.TDCValue = 0;
-#endif
-
     SPI_Write_Word(cREGADDR_CiTDC, ciTdc.word);
 
 }
 // Section: Time Stamp
-
-int8_t DRV_CANFDSPI_TimeStampEnable(CANFDSPI_MODULE_ID index)
+/*
+ * there should be a function that takes care of overflowing of the time stamp counter
+ */
+void CANFD_TimeStamp_Enable(void)
 {
-    int8_t spiTransferError = 0;
+
     uint8_t d = 0;
-
     // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
-    if (spiTransferError) {
-        return -1;
-    }
-
+    SPI_Read_Byte(cREGADDR_CiTSCON + 2, &d);
     // Modify
     d |= 0x01;
-
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Byte(cREGADDR_CiTSCON + 2, d);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_TimeStampDisable(CANFDSPI_MODULE_ID index)
+void CANFD_TimeStamp_Disable(void)
 {
-    int8_t spiTransferError = 0;
     uint8_t d = 0;
 
     // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
-    if (spiTransferError) {
-        return -1;
-    }
+    SPI_Read_Byte(cREGADDR_CiTSCON + 2, &d);
 
     // Modify
     d &= 0x06;
 
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
-    if (spiTransferError) {
-        return -2;
-    }
+    SPI_Write_Byte(cREGADDR_CiTSCON + 2, d);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_TimeStampGet(CANFDSPI_MODULE_ID index, uint32_t* ts)
+void CANFDSPI_TimeStamp_Counter_Get(uint32_t* ts)
 {
-    int8_t spiTransferError = 0;
-
     // Read
-    spiTransferError = DRV_CANFDSPI_ReadWord(index, cREGADDR_CiTBC, ts);
+    SPI_Read_Word(cREGADDR_CiTBC, ts);
 
-    return spiTransferError;
 }
 
-int8_t DRV_CANFDSPI_TimeStampSet(CANFDSPI_MODULE_ID index, uint32_t ts)
+void CANFD_TimeStamp_Counter_Set(uint32_t ts)
 {
-    int8_t spiTransferError = 0;
-
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteWord(index, cREGADDR_CiTBC, ts);
-
-    return spiTransferError;
+    SPI_Write_Word(cREGADDR_CiTBC, ts);
 }
 
-int8_t DRV_CANFDSPI_TimeStampModeConfigure(CANFDSPI_MODULE_ID index,
-        CAN_TS_MODE mode)
+
+int8_t CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode)
 {
-    int8_t spiTransferError = 0;
     uint8_t d = 0;
-
     // Read
-    spiTransferError = DRV_CANFDSPI_ReadByte(index, cREGADDR_CiTSCON + 2, &d);
-    if (spiTransferError) {
-        return -1;
-    }
-
+    SPI_Read_Byte(cREGADDR_CiTSCON + 2, &d);
     // Modify
     d &= 0x01;
     d |= mode << 1;
 
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteByte(index, cREGADDR_CiTSCON + 2, d);
-    if (spiTransferError) {
-        return -2;
-    }
-
-    return spiTransferError;
+    SPI_Write_Byte(cREGADDR_CiTSCON + 2, d);
 }
-
-int8_t DRV_CANFDSPI_TimeStampPrescalerSet(CANFDSPI_MODULE_ID index,
-        uint16_t ps)
+/*
+ * -1 , from systemclock
+ */
+int8_t CANFD_TimeStamp_Prescaler_Set(uint16_t ps)
 {
-    int8_t spiTransferError = 0;
-
     // Write
-    spiTransferError = DRV_CANFDSPI_WriteHalfWord(index, cREGADDR_CiTSCON, ps);
+    SPI_Write_Half_Word( cREGADDR_CiTSCON, ps);
 
-    return spiTransferError;
 }

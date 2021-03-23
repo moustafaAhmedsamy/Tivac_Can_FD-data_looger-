@@ -5,9 +5,9 @@
  *      Author: mostafa
  */
 
-#include "drv_canfdspi_api.h"
-#include "drv_canfdspi_register.h"
-#include "drv_canfdspi_defines.h"
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_api.h>
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_defines.h>
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_register.h>
 
 /*
  *  CiINT – INTERRUPT REGISTER

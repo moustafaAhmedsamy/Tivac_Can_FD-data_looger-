@@ -8,9 +8,10 @@
 
 // Section: Included Files
 
-#include "drv_canfdspi_api.h"
-#include "drv_canfdspi_register.h"
-#include "drv_canfdspi_defines.h"
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_api.h>
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_defines.h>
+#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_register.h>
+
 #include "../spi/drv_spi.h"
 #include "mcp25xxfd_demo_h2_rel/firmware/src/system_config.h"
 
@@ -274,45 +275,6 @@ int8_t DRV_CANFDSPI_TefEventOverflowClear(CANFDSPI_MODULE_ID index)
 // *****************************************************************************
 // Section: Miscellaneous
 
-uint32_t DRV_CANFDSPI_DlcToDataBytes(CAN_DLC dlc)
-{
-    uint32_t dataBytesInObject = 0;
-
-    Nop();
-    Nop();
-
-    if (dlc < CAN_DLC_12) {
-        dataBytesInObject = dlc;
-    } else {
-        switch (dlc) {
-            case CAN_DLC_12:
-                dataBytesInObject = 12;
-                break;
-            case CAN_DLC_16:
-                dataBytesInObject = 16;
-                break;
-            case CAN_DLC_20:
-                dataBytesInObject = 20;
-                break;
-            case CAN_DLC_24:
-                dataBytesInObject = 24;
-                break;
-            case CAN_DLC_32:
-                dataBytesInObject = 32;
-                break;
-            case CAN_DLC_48:
-                dataBytesInObject = 48;
-                break;
-            case CAN_DLC_64:
-                dataBytesInObject = 64;
-                break;
-            default:
-                break;
-        }
-    }
-
-    return dataBytesInObject;
-}
 
 int8_t DRV_CANFDSPI_FifoIndexGet(CANFDSPI_MODULE_ID index,
         CAN_FIFO_CHANNEL channel, uint8_t* mi)
