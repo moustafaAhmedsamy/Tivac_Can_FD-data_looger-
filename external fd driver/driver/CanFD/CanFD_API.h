@@ -49,7 +49,7 @@
 // *****************************************************************************
 // Section: Included Files
 
-#include <driver/mcp25xxfd_driver/CanFD/drv_canfdspi_defines.h>
+#include "CanFD_defines.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -87,7 +87,7 @@ void CANFD_Interrupt_Event_Icode_Get(CAN_ICODE* icode);
 void CANFD_Tef_Interrupt_Source_Get(CAN_TEF_FIFO_EVENT* flags);
 void CANFD_Tef_Interrupt_Enable(CAN_TEF_FIFO_EVENT flags);
 void CANFD_Tef_Interrupt_Disable(CAN_TEF_FIFO_EVENT flags);
-void CANFD_Tef_Status_Get(CANFDSPI_MODULE_ID index,CAN_TEF_FIFO_STATUS* status);
+void CANFD_Tef_Status_Get(CAN_TEF_FIFO_STATUS* status);
 void CANFD_Tef_Message_Get(CAN_TEF_MSGOBJ* tefObj);
 void CANFD_Tef_Reset(void);
 void CANFD_Tef_Increment(void);

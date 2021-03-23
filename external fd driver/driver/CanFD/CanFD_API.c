@@ -5,6 +5,7 @@
  *      Author: mostafa
  */
 
+#include "CanFD_API.h"
 
 int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode, CAN_SYSCLK_SPEED clk)
 {
@@ -1238,7 +1239,7 @@ void CANFD_Tef_Interrupt_Disable(CAN_TEF_FIFO_EVENT flags)
     SPI_Write_Byte( a, ciTefCon.byte[0]);
 }
 
-void CANFD_Tef_Status_Get(CANFDSPI_MODULE_ID index,CAN_TEF_FIFO_STATUS* status)
+void CANFD_Tef_Status_Get(CAN_TEF_FIFO_STATUS* status)
 {
     uint16_t a = 0;
 
