@@ -1,1 +1,1 @@
-"./app.obj" "./final_code.obj" "./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./driver/CanFD/Configuration_&_initialization.obj" "./driver/CanFD/SPI_interface.obj" "./driver/CanFD/Transmation.obj" "./driver/CanFD/bittimiong.obj" "./driver/CanFD/gpios.obj" "./driver/CanFD/interupts.obj" "./driver/spi/spi.obj" "../tm4c123gh6pm.cmd" -llibc.a 
+"./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./driver/CanFD/CanFD_API.obj" "./driver/CanFD/SPI_interface.obj" "./driver/spi/spi.obj" "../tm4c123gh6pm.cmd" -llibc.a 

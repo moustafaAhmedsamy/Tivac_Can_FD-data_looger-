@@ -8,16 +8,10 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./app.obj" \
-"./final_code.obj" \
 "./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
-"./driver/CanFD/Configuration_&_initialization.obj" \
+"./driver/CanFD/CanFD_API.obj" \
 "./driver/CanFD/SPI_interface.obj" \
-"./driver/CanFD/Transmation.obj" \
-"./driver/CanFD/bittimiong.obj" \
-"./driver/CanFD/gpios.obj" \
-"./driver/CanFD/interupts.obj" \
 "./driver/spi/spi.obj" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -166,8 +160,8 @@ external\ fd\ driver.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "app.obj" "final_code.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/CanFD/Configuration_&_initialization.obj" "driver/CanFD/SPI_interface.obj" "driver/CanFD/Transmation.obj" "driver/CanFD/bittimiong.obj" "driver/CanFD/gpios.obj" "driver/CanFD/interupts.obj" "driver/spi/spi.obj" 
-	-$(RM) "app.d" "final_code.d" "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/CanFD/Configuration_&_initialization.d" "driver/CanFD/SPI_interface.d" "driver/CanFD/Transmation.d" "driver/CanFD/bittimiong.d" "driver/CanFD/gpios.d" "driver/CanFD/interupts.d" "driver/spi/spi.d" 
+	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" "driver/CanFD/CanFD_API.obj" "driver/CanFD/SPI_interface.obj" "driver/spi/spi.obj" 
+	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" "driver/CanFD/CanFD_API.d" "driver/CanFD/SPI_interface.d" "driver/spi/spi.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

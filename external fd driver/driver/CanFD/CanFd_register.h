@@ -128,9 +128,9 @@ extern "C" {
 #endif
 
 /* RAM addresses */
-#if defined(MCP2517FD) || defined(MCP2518FD)
+
 #define cRAM_SIZE       2048
-#endif
+
 
 #define cRAMADDR_START  0x400
 #define cRAMADDR_END    (cRAMADDR_START+cRAM_SIZE)
@@ -793,11 +793,6 @@ const static uint32_t canFilterObjectResetValues[] = {
 // *****************************************************************************
 /* MCP25xxFD */
 
-#if defined(MCP2517FD) || defined(MCP2518FD)
-const static uint32_t mcp25xxfdControlResetValues[] = {
-    0x00000460, 0x00000003, 0x00000000, 0x00000000, 0x00000000
-};
-#endif
 
 
 #endif // _DRV_CANFDSPI_REGISTER_H
