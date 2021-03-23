@@ -86,7 +86,21 @@ int main1 ( void )
     return ( EXIT_FAILURE );
 }
 
-
+// Configure transmit message
+//            txObj.word[0] = 0;
+//            txObj.word[1] = 0;
+//
+//            txObj.bF.id.SID = TX_RESPONSE_ID;
+//            txObj.bF.id.EID = 0;
+//
+//            txObj.bF.ctrl.BRS = 1;
+//            txObj.bF.ctrl.DLC = CAN_DLC_64;
+//            txObj.bF.ctrl.FDF = 1;
+//            txObj.bF.ctrl.IDE = 0;
+//
+//            // Configure message data
+//            int i;
+//            for (i = 0; i < MAX_DATA_BYTES; i++) txd[i] = txObj.bF.id.SID + i;
 /*******************************************************************************
  End of File
 */

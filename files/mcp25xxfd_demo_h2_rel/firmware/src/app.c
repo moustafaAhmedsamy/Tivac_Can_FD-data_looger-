@@ -128,7 +128,7 @@ CAN_ERROR_STATE errorFlags;
 bool errorDetected = false;
 
 // Bit time configurations
-const uint16_t BitTimeConfig125K[] = {
+const uint16_t BitTimeConfig125K[] = {byte
     1, 0x11, 500
 };
 
@@ -303,7 +303,7 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {
     // Debounce switches
-    APP_DebounceSwitches(&switchChanged);
+    APP_DebounceSwitches(&switchChanged)txObj;
     if (switchChanged) {
         Nop();
         Nop();

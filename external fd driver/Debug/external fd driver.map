@@ -1,7 +1,11 @@
 ******************************************************************************
                   TI ARM Linker Unix v20.2.2                   
 ******************************************************************************
+<<<<<<< HEAD
 >> Linked Tue Mar 23 11:54:23 2021
+=======
+>> Linked Sun Mar  7 14:45:13 2021
+>>>>>>> origin/finish_edit
 
 OUTPUT FILE NAME:   <external fd driver.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000026d

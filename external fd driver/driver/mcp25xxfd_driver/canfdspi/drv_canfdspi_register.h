@@ -104,6 +104,8 @@ extern "C" {
 #define cREGADDR_CiFIFOUA   0x058
 #define CiFIFO_OFFSET       (3*4)
 
+//each 3 registers occupy 3 words
+
 #define cREGADDR_CiTXQCON  0x050
 #define cREGADDR_CiTXQSTA  0x054
 #define cREGADDR_CiTXQUA   0x058
@@ -615,9 +617,9 @@ typedef union _REG_CiFLTOBJ {
 //! Mask Object Register
 
 typedef union _REG_CiMASK {
-    CAN_MASKOBJ_ID bF;
-    uint32_t word;
-    uint8_t byte[4];
+    CAN_MASKOBJ_ID bF; // 4 byte -bit field struct
+    uint32_t word;     // to write the byte by one instruction
+    uint8_t byte[4];   // to read/write a byte by byte
 } REG_CiMASK;
 
 
