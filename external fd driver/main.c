@@ -14,6 +14,6 @@
 
 int main(void)
 {
-    GPIODirModeSet(0,0,0);
+    GPIODirModeSet(0,0,1);
 	return 0;
 }
