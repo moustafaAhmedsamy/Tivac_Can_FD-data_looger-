@@ -114,4 +114,9 @@ SUBDIRS := \
 . \
 driver/CanFD \
 driver/spi \
+driverlib \
+driverlib/ccs/Debug \
+driverlib/ewarm/Exe \
+driverlib/gcc \
+driverlib/rvmdk \
 

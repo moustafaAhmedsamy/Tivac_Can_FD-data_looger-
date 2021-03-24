@@ -3,6 +3,16 @@
 
 #include <stdint.h>
 
+
+#include "driverlib/rom_map.h"
+#include <driverlib/interrupt.h>
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/ssi.h"
+#include "driverlib/sysctl.h"
+
+
 #define ENC_CS_PORT         GPIO_PORTA_BASE
 #define ENC_INT_PORT        GPIO_PORTD_BASE
 //#define ENC_RESET_PORT        GPIO_PORTA_BASE

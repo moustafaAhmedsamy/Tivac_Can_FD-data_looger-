@@ -6,10 +6,12 @@
  */
 
 
-
+//! SPI Transmit buffer
+#define SPI_DEFAULT_BUFFER_LENGTH 96
 
 void SPI_Reset(void);
 void SPI_Write_Byte_Array(const uint8_t *buf, uint16_t count);
+void SPI_Write_Byte_Array_TX(uint16_t address ,const uint8_t *buf, uint16_t count);
 void SPI_Write_Byte(uint16_t address , uint8_t byte );
 void SPI_Write_Word( uint16_t address,uint32_t txd);
 void SPI_Write_Half_Word(uint16_t address,uint16_t txd);

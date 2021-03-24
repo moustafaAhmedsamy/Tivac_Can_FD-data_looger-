@@ -36,8 +36,12 @@
  */
 
 
+#include "stdint.h"
+#include "CanFd_register.h"
+#include "SPI_interface.h"
+#include "../spi/spi.h"
 
-//! SPI Transmit buffer
+
 uint8_t spiTransmitBuffer[SPI_DEFAULT_BUFFER_LENGTH];
 
 //! SPI Receive buffer
@@ -45,7 +49,7 @@ uint8_t spiReceiveBuffer[SPI_DEFAULT_BUFFER_LENGTH];
 
 void SPI_Reset(void)
 {
-    uint16_t spiTransferSize = 2;
+   //uint16_t spiTransferSize = 2;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) (cINSTRUCTION_RESET << 4);
@@ -57,7 +61,24 @@ void SPI_Reset(void)
     MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
 
 }
+void SPI_Write_Byte_Array_TX(uint16_t address ,const uint8_t *buf, uint16_t count)
+{
+    spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_WRITE << 4) + ((address >> 8) & 0xF));
+    spiTransmitBuffer[1] = (uint8_t) (address & 0xFF);
 
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
+
+    spi_send(spiTransmitBuffer[0]);
+    spi_send(spiTransmitBuffer[1]);
+
+    int i;
+    for (i = 0; i < count; i++) {
+        spi_send(*buf);
+        buf++;
+    }
+    MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
+
+}
 void SPI_Write_Byte(uint16_t address , uint8_t byte )
 {
         spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_WRITE << 4) + ((address >> 8) & 0xF));
@@ -136,7 +157,6 @@ void SPI_Write_Word_Array(uint16_t address, uint32_t *txd, uint16_t nWords)
 
 void SPI_Read_Byte(uint16_t address, uint8_t *rxd)
 {
-    uint16_t spiTransferSize = 3;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));
@@ -146,18 +166,14 @@ void SPI_Read_Byte(uint16_t address, uint8_t *rxd)
     MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, 0);
     spi_send(spiTransmitBuffer[0]);
     spi_send(spiTransmitBuffer[1]);
-    byte = spi_send(spiTransmitBuffer[2]);    / / this byte is read
+    *rxd = spi_send(spiTransmitBuffer[2]);
     MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
 
-    // Update data
-    *rxd = byte;
 }
 
 void SPI_Read_Byte_Array(uint16_t address, uint8_t *rxd, uint16_t nBytes)
 {
-    uint16_t i,j;
-    uint16_t spiTransferSize = nBytes + 2;
-    int8_t spiTransferError = 0;
+    uint16_t j;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));
@@ -177,10 +193,10 @@ void SPI_Read_Byte_Array(uint16_t address, uint8_t *rxd, uint16_t nBytes)
 
 void SPI_Read_Word(uint16_t address, uint32_t *rxd)
 {
-    uint8_t i;
+    uint8_t i,j;
     uint32_t x;
-    uint32_t y ;
-    uint16_t spiTransferSize = 6;
+//    uint32_t y ;
+//    uint16_t spiTransferSize = 6;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));
@@ -190,9 +206,9 @@ void SPI_Read_Word(uint16_t address, uint32_t *rxd)
     spi_send(spiTransmitBuffer[0]);
     spi_send(spiTransmitBuffer[1]);
 
-    for (j=0;j<nBytes;j++)
+    for (j=0;j<4;j++)
         {
-        spiReceiveBuffer[i]= spi_send(spiTransmitBuffer[2]);
+        spiReceiveBuffer[j]= spi_send(spiTransmitBuffer[2]);
         }
         MAP_GPIOPinWrite(ENC_CS_PORT, ENC_CS, ENC_CS);
 
@@ -208,9 +224,8 @@ void SPI_Read_Word(uint16_t address, uint32_t *rxd)
 
 void SPI_Read_Half_Word(uint16_t address, uint16_t *rxd)
 {
-    uint8_t i;
-    uint32_t x;
-    uint16_t spiTransferSize = 4;
+
+    //uint16_t spiTransferSize = 4;
 
     // Compose command
     spiTransmitBuffer[0] = (uint8_t) ((cINSTRUCTION_READ << 4) + ((address >> 8) & 0xF));

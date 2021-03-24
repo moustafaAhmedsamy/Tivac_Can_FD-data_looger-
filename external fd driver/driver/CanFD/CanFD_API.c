@@ -6,6 +6,8 @@
  */
 
 #include "CanFD_API.h"
+#include "CanFd_register.h"
+#include "SPI_interface.h"
 
 int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode, CAN_SYSCLK_SPEED clk)
 {
@@ -14,7 +16,7 @@ int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode
     // Decode clk
     switch (clk) {
         case CAN_SYSCLK_40M:
-            CANFD_Bit_Time_Configure_Nominal_40MHz(index, bitTime);
+            CANFD_Bit_Time_Configure_Nominal_40MHz( bitTime);
             CANFD_Bit_Time_Configure_Data_40MHz(bitTime);
             break;
         case CAN_SYSCLK_20M:
@@ -33,9 +35,8 @@ int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode
     return spiTransferError;
 }
 
-void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
+void CANFD_Bit_Time_Configure_Nominal_40MHz(CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
     REG_CiNBTCFG ciNbtcfg;
 
     ciNbtcfg.word = canControlResetValues[cREGADDR_CiNBTCFG / 4];
@@ -48,7 +49,6 @@ void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
         case CAN_500K_3M:
         case CAN_500K_4M:
         case CAN_500K_5M:
-        case :
         case CAN_500K_8M:
         case CAN_500K_10M:
             ciNbtcfg.bF.BRP = 0;
@@ -86,9 +86,6 @@ void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
             ciNbtcfg.bF.SJW = 63;
             break;
 
-        default:
-            return -1;
-            break;
     }
 
     // Write Bit time registers
@@ -96,9 +93,8 @@ void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime)
 
 }
 
-void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime)
+void CANFD_Bit_Time_Configure_Data_40MHz(CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
     REG_CiDBTCFG ciDbtcfg;
     REG_CiTDC ciTdc;
 
@@ -262,9 +258,7 @@ void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime)
             ciTdc.bF.TDCValue = tdcValue;
             break;
 
-        default:
-            return -1;
-            break;
+
     }
 
     // Write Bit time registers
@@ -276,7 +270,7 @@ void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime)
 
 void CANFD_Bit_Time_Configure_Nominal_20MHz(CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
+
     REG_CiNBTCFG ciNbtcfg;
 
     ciNbtcfg.word = canControlResetValues[cREGADDR_CiNBTCFG / 4];
@@ -326,18 +320,15 @@ void CANFD_Bit_Time_Configure_Nominal_20MHz(CAN_BITTIME_SETUP bitTime)
             ciNbtcfg.bF.SJW = 31;
             break;
 
-        default:
-            return -1;
-            break;
     }
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
 }
 
-void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode)
+void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
+
     REG_CiDBTCFG ciDbtcfg;
     REG_CiTDC ciTdc;
     //    sspMode;
@@ -396,8 +387,6 @@ void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MOD
         case CAN_500K_10M:
         case CAN_1000K_8M:
             //qDebug("Data Bitrate not feasible with this clock!");
-            return -1;
-            break;
 
         case CAN_250K_500K:
         case CAN_125K_500K:
@@ -449,8 +438,8 @@ void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MOD
             break;
         case CAN_250K_3M:
             //qDebug("Data Bitrate not feasible with this clock!");
-            return -1;
-            break;
+
+
         case CAN_250K_4M:
             // Data BR
             ciDbtcfg.bF.BRP = 0;
@@ -462,20 +451,17 @@ void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MOD
             ciTdc.bF.TDCValue = tdcValue;
             break;
 
-        default:
-            return -1;
-            break;
     }
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiDBTCFG, ciDbtcfg.word);
-    SPI_Write_Word(index, cREGADDR_CiTDC, ciTdc.word);
+    SPI_Write_Word(cREGADDR_CiTDC, ciTdc.word);
 
 }
 
 void CANFD_Bit_Time_Configure_Nominal_10MHz(CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
+
     REG_CiNBTCFG ciNbtcfg;
 
     ciNbtcfg.word = canControlResetValues[cREGADDR_CiNBTCFG / 4];
@@ -523,20 +509,17 @@ void CANFD_Bit_Time_Configure_Nominal_10MHz(CAN_BITTIME_SETUP bitTime)
             ciNbtcfg.bF.TSEG1 = 62;
             ciNbtcfg.bF.TSEG2 = 15;
             ciNbtcfg.bF.SJW = 15;
-            break;
 
-        default:
-            return -1;
-            break;
+
     }
 
     // Write Bit time registers
     SPI_Write_Word( cREGADDR_CiNBTCFG, ciNbtcfg.word);
 }
 
-int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
+void CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
 {
-    int8_t spiTransferError = 0;
+
     REG_CiDBTCFG ciDbtcfg;
     REG_CiTDC ciTdc;
 
@@ -576,8 +559,8 @@ int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
         case CAN_1000K_4M:
         case CAN_1000K_8M:
             //qDebug("Data Bitrate not feasible with this clock!");
-            return -1;
-            break;
+
+
 
         case CAN_250K_500K:
         case CAN_125K_500K:
@@ -611,8 +594,8 @@ int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
             break;
         case CAN_250K_1M5:
             //qDebug("Data Bitrate not feasible with this clock!");
-            return -1;
-            break;
+
+
         case CAN_250K_2M:
             ciDbtcfg.bF.BRP = 0;
             ciDbtcfg.bF.TSEG1 = 2;
@@ -625,12 +608,7 @@ int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime)
         case CAN_250K_3M:
         case CAN_250K_4M:
             //qDebug("Data Bitrate not feasible with this clock!");
-            return -1;
-            break;
 
-        default:
-            return -1;
-            break;
     }
 
     // Write Bit time registers
@@ -680,7 +658,7 @@ void CANFD_TimeStamp_Counter_Set(uint32_t ts)
     // Write
     SPI_Write_Word(cREGADDR_CiTBC, ts);
 }
-int8_t CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode)
+void CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode)
 {
     uint8_t d = 0;
     // Read
@@ -695,7 +673,7 @@ int8_t CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode)
 /*
  * -1 , from systemclock
  */
-int8_t CANFD_TimeStamp_Prescaler_Set(uint16_t ps)
+void CANFD_TimeStamp_Prescaler_Set(uint16_t ps)
 {
     // Write
     SPI_Write_Half_Word( cREGADDR_CiTSCON, ps);
@@ -774,7 +752,7 @@ void CANFD_RamInit(void)
 
     for (k = 0; k < (cRAM_SIZE / SPI_DEFAULT_BUFFER_LENGTH); k++)
     {
-        SPI_Write_Word_Array( a, txd, SPI_DEFAULT_BUFFER_LENGTH);
+        SPI_Write_Byte_Array_TX( a, txd, SPI_DEFAULT_BUFFER_LENGTH);
         a += SPI_DEFAULT_BUFFER_LENGTH;
     }
 
@@ -802,6 +780,7 @@ void CANFD_ConfigureObjectReset(CAN_CONFIG* config)
  */
 void CANFD_OperationModeSelect(CAN_OPERATION_MODE opMode)
 {
+    uint8_t d = 0;
     // Read
     SPI_Read_Byte(cREGADDR_CiCON + 3, &d);
 
@@ -821,7 +800,7 @@ CAN_OPERATION_MODE CANFD_OperationModeGet(void)
     // Read Opmode
     //DRV_CANFDSPI_ReadByte(index, cREGADDR_CiCON + 2, &d); // should be 3 not 2
     //SPI_Read_Byte(cREGADDR_CiCON + 3, &d);
-    SPI_Read_Byte(cREGADDR_CiCON + 2, &d)
+    SPI_Read_Byte(cREGADDR_CiCON + 2, &d);
 
     // Get Opmode bits
     d = (d >> 5) & 0x7;
@@ -871,7 +850,7 @@ void CANFD_Filter_Enable(CAN_FILTER filter)
 
     // Read
     a = cREGADDR_CiFLTCON + filter;
-    SPI_Read_Byte(index, a, &fCtrl.byte);
+    SPI_Read_Byte( a, &fCtrl.byte);
 
     // Modify ,set the en bit
     fCtrl.bF.Enable = 1;
@@ -886,7 +865,7 @@ void CANFD_Filter_Disable(CAN_FILTER filter)
 
     // Read
     a = cREGADDR_CiFLTCON + filter;
-    SPI_Read_Byte(index, a, &fCtrl.byte);
+    SPI_Read_Byte( a, &fCtrl.byte);
 
     // Modify ,set the en bit
     fCtrl.bF.Enable = 0;
@@ -914,7 +893,7 @@ void CANFD_Filter_Mask_Objects_Configure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id
     mObj.bF = *mask;
     a =0;
     a = cREGADDR_CiMASK + (filter * CiFILTER_OFFSET);
-    SPI_Write_Word(a, mObj.bF);
+    SPI_Write_Word(a, mObj.word);
 
     // Link the fifo
     fCtrl.bF.BufferPointer = fifo_index;
@@ -964,14 +943,14 @@ void CANFD_TransmitFIOF_ConfigureObject_Reset(CAN_TX_FIFO_CONFIG* config)
  * the tx or rx checking is made on the app. layer
  *
  */
-int8_t CANFD_ReceiveFIOF_Configure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config)
+void CANFD_ReceiveFIOF_Configure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config)
 {
-    int8_t spiTransferError = 0;
+
     uint16_t a = 0;
 
-    if (buffer_index == CAN_TXQUEUE_CH0) {
-        return -100;
-    }
+//    if (buffer_index == CAN_TXQUEUE_CH0) {
+//        return -100;
+//    }
 
     // Setup FIFO
     REG_CiFIFOCON ciFifoCon;
@@ -982,7 +961,7 @@ int8_t CANFD_ReceiveFIOF_Configure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFI
     ciFifoCon.rxBF.PayLoadSize = config->PayLoadSize;
     ciFifoCon.rxBF.RxTimeStampEnable = config->RxTimeStampEnable;
 
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET);
 
     SPI_Write_Word(a, ciFifoCon.word);
 }
@@ -1248,7 +1227,7 @@ void CANFD_Tef_Status_Get(CAN_TEF_FIFO_STATUS* status)
     ciTefSta.word = 0;
     a = cREGADDR_CiTEFSTA;
 
-    DRV_CANFDSPI_ReadByte(a, &ciTefSta.byte[0]);
+    SPI_Read_Byte(a, &ciTefSta.byte[0]);
 
     // Update data
     *status = (CAN_TEF_FIFO_STATUS) (ciTefSta.byte[0] & CAN_TEF_FIFO_STATUS_MASK);
@@ -1263,7 +1242,7 @@ void CANFD_Tef_Message_Get(CAN_TEF_MSGOBJ* tefObj)
     // Get FIFO registers
     a = cREGADDR_CiTEFCON;
 
-    DRV_CANFDSPI_ReadWordArray(a, fifoReg, 3);
+    SPI_Read_Word_Array(a, fifoReg, 3);
 
     // Get control
     REG_CiTEFCON ciTefCon;
@@ -1329,7 +1308,7 @@ void CANFD_Tef_Message_Get(CAN_TEF_MSGOBJ* tefObj)
 
 void CANFD_Tef_Reset(void)
 {
-    int8_t spiTransferError = 0;
+
     uint16_t a = 0;
 
     // Set FRESET
@@ -1339,7 +1318,7 @@ void CANFD_Tef_Reset(void)
     ciTefCon.bF.FRESET = 1;
 
     // Write byte
-    SPI_Write_Byte(index, a, ciTefCon.byte[1]);
+    SPI_Write_Byte( a, ciTefCon.byte[1]);
 
 }
 
@@ -1369,7 +1348,7 @@ void CANFD_Receive_Message_Get(CAN_FIFO_INDEX buffer_index, CAN_RX_MSGOBJ* rxObj
     // Get FIFO registers
     a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET);
 
-    SPI_Read_Byte_Array( a, fifoReg, 3);
+    SPI_Read_Word_Array( a, fifoReg, 3);
 
     // Check that it is a receive buffer
     ciFifoCon.word = fifoReg[0];
@@ -1458,7 +1437,7 @@ void CANFD_Receive_fifo_Reset(CAN_FIFO_INDEX buffer_index)
     REG_CiFIFOCON ciFifoCon;
 
     // Address aSPI_Read_Bytend data
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
+    a = cREGADDR_CiFIFOCON + (buffer_index * CiFIFO_OFFSET) + 1; // Byte that contains FRESET
     ciFifoCon.word = 0;
     ciFifoCon.rxBF.FRESET = 1;
 
@@ -1469,7 +1448,7 @@ void CANFD_Receive_Fifo_Increment(CAN_FIFO_INDEX buffer_index)
 {
     uint16_t a = 0;
     REG_CiFIFOCON ciFifoCon;
-    int8_t spiTransferError = 0;
+
     ciFifoCon.word = 0;
 
     // Set UINC
@@ -1484,13 +1463,13 @@ void  CANFD_Receive_Channel_Status_Get(CAN_FIFO_INDEX buffer_index , CAN_RX_FIFO
 {
     uint16_t a;
     REG_CiFIFOSTA ciFifoSta;
-    int8_t spiTransferError = 0;
+
 
     // Read
     ciFifoSta.word = 0;
     a = cREGADDR_CiFIFOSTA + (buffer_index * CiFIFO_OFFSET);
 
-    SPI_Read_Byte(index, a, &ciFifoSta.byte[0]);
+    SPI_Read_Byte( a, &ciFifoSta.byte[0]);
 
     // Update data
     *status = (CAN_RX_FIFO_STATUS) (ciFifoSta.byte[0] & 0x0F);
@@ -1504,7 +1483,7 @@ void CANFD_Error_TX_Counter_Get(uint8_t* tec)
     uint16_t a = 0;
     // Read Error count
     a = cREGADDR_CiTREC + 1;
-    SPI_Read_Byte(index, a, tec);
+    SPI_Read_Byte( a, tec);
 }
 void CANFD_Error_RX_Counter_Get(uint8_t* rec)
 {
@@ -1512,7 +1491,7 @@ void CANFD_Error_RX_Counter_Get(uint8_t* rec)
     // Read Error count
     a = cREGADDR_CiTREC;
 
-    SPI_Read_Byte(index, a, rec);
+    SPI_Read_Byte( a, rec);
 }
 /*
  * TXBO TXBP RXBP TXWARN RXWARN EWARN
@@ -1524,7 +1503,7 @@ void DRV_CANFDSPI_Error_State_Get(CAN_ERROR_STATE* flags)
     a = cREGADDR_CiTREC + 2;
     uint8_t f = 0;
 
-    SPI_Read_Byte(index, a, &f);
+    SPI_Read_Byte(a, &f);
 
     // Update data
     *flags = (CAN_ERROR_STATE) (f & CAN_ERROR_ALL);
@@ -1558,7 +1537,7 @@ void DRV_CANFDSPI_BusDiagnosticsClear(void)
     uint32_t w[2];
     w[0] = 0;
     w[1] = 0;
-    SPI_Write_Word_Array(index, a, w, 2);
+    SPI_Write_Word_Array( a, w, 2);
 }
 //*******************************************************************************************************************************************************************
 
@@ -1586,17 +1565,17 @@ void CANFD_Transmit_Object_Load( CAN_FIFO_INDEX fifo_index , CAN_TX_MSGOBJ* txOb
 
     // Check that it is a transmit buffer
     ciFifoCon.word = fifoReg[0];                        // assign the fist word in the first register
-    if (!ciFifoCon.txBF.TxEnable)                       // Check that it is a transmit buffer
-    {
-        return -2;
-    }
+//    if (!ciFifoCon.txBF.TxEnable)                       // Check that it is a transmit buffer
+//    {
+//        return -2;
+//    }
 
     // Check that DLC is big enough for data
-    dataBytesInObject = DRV_CANFDSPI_DlcToDataBytes((CAN_DLC) txObj->bF.ctrl.DLC);  // from the lookup table get the no. of bytes to be send
-    if (dataBytesInObject < txdNumBytes)
-    {
-        return -3;
-    }
+    dataBytesInObject = CANFD_Dlc_To_Data_Bytes((CAN_DLC) txObj->bF.ctrl.DLC);  // from the lookup table get the no. of bytes to be send
+//    if (dataBytesInObject < txdNumBytes)
+//    {
+//        return -3;
+//    }
 
     // Get status
     ciFifoSta.word = fifoReg[1];                        // assign the 2nd word in the 2nd register
@@ -1643,7 +1622,7 @@ void CANFD_Transmit_Object_Load( CAN_FIFO_INDEX fifo_index , CAN_TX_MSGOBJ* txOb
         }
     }
 
-    SPI_Write_Byte_Array( a, txBuffer, txdNumBytes + 8 + n);
+    SPI_Write_Byte_Array_TX(a,txBuffer, txdNumBytes + 8 + n);
 
     // Set UINC and TXREQ
     //              ^^^^^
@@ -1676,7 +1655,7 @@ void CANFD_Transmit_Request_Fifos_Set(CAN_TXREQ_CHANNEL txreq)
 {
     // Write TXREQ register
     uint32_t w = txreq;
-    SPI_Write_Word(index, cREGADDR_CiTXREQ, w);
+    SPI_Write_Word(cREGADDR_CiTXREQ, w);
 
 }
 void CANFD_Transmit_Request_Fifos_Get(uint32_t* txreq)
@@ -1690,7 +1669,7 @@ void CANFD_Transmit_Fifo_Abort(CAN_FIFO_INDEX fifo_index)
     uint8_t d;
 
     // Address
-    a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
+    a = cREGADDR_CiFIFOCON + (fifo_index * CiFIFO_OFFSET);
     a += 1; // byte address of TXREQ
 
     // Clear TXREQ
@@ -1702,9 +1681,6 @@ void CANFD_Transmit_Fifo_Abort(CAN_FIFO_INDEX fifo_index)
 uint32_t CANFD_Dlc_To_Data_Bytes(CAN_DLC dlc)
 {
     uint32_t dataBytesInObject = 0;
-
-    Nop();
-    Nop();
 
     if (dlc < CAN_DLC_12) {
         dataBytesInObject = dlc;

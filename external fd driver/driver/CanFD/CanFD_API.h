@@ -64,7 +64,7 @@ void CANFD_Filter_Disable(CAN_FILTER filter);
 void CANFD_Filter_Mask_Objects_Configure(CAN_FILTER filter, CAN_FILTEROBJ_ID* id, CAN_MASKOBJ_ID* mask , CAN_FIFO_INDEX fifo_index);
 void CANFD_TransmitFIOF_Configure( CAN_FIFO_INDEX fifo_index, CAN_TX_FIFO_CONFIG* config);
 void CANFD_TransmitFIOF_ConfigureObject_Reset(CAN_TX_FIFO_CONFIG* config);
-int8_t CANFD_ReceiveFIOF_Configure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config);
+void CANFD_ReceiveFIOF_Configure(CAN_FIFO_INDEX buffer_index,CAN_RX_FIFO_CONFIG* config);
 void CANFD_ReceiveChannelConfigureObjectReset(CAN_RX_FIFO_CONFIG* config);
 void CANFD_Tef_Configure(CAN_TEF_CONFIG* config);
 void CANFD_Tef_Configure_Object_Reset(CAN_TEF_CONFIG* config);
@@ -102,19 +102,19 @@ void DRV_CANFDSPI_BusDiagnosticsClear(void);
 
 
 int8_t CANFD_Bit_Time_Configure( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode, CAN_SYSCLK_SPEED clk);
-void DRV_CANFDSPI_BitTimeConfigureNominal40MHz(CAN_BITTIME_SETUP bitTime);
-void DRV_CANFDSPI_BitTimeConfigureData40MHz(CAN_BITTIME_SETUP bitTime);
+void CANFD_Bit_Time_Configure_Nominal_40MHz(CAN_BITTIME_SETUP bitTime);
+void CANFD_Bit_Time_Configure_Data_40MHz(CAN_BITTIME_SETUP bitTime);
 void CANFD_Bit_Time_Configure_Nominal_20MHz(CAN_BITTIME_SETUP bitTime);
-void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime, CAN_SSP_MODE sspMode);
+void CANFD_Bit_Time_Configure_Data_20MHz( CAN_BITTIME_SETUP bitTime);
 void CANFD_Bit_Time_Configure_Nominal_10MHz(CAN_BITTIME_SETUP bitTime);
-int8_t CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime);
+void CANFD_Bit_Time_Configure_Data_10MHz(CAN_BITTIME_SETUP bitTime);
 
 void CANFD_TimeStamp_Enable(void);
 void CANFD_TimeStamp_Disable(void);
 void CANFDSPI_TimeStamp_Counter_Get(uint32_t* ts);
 void CANFD_TimeStamp_Counter_Set(uint32_t ts);
-int8_t CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode);
-int8_t CANFD_TimeStamp_Prescaler_Set(uint16_t ps);
+void CANFD_TimeStamp_Mode_Configure(CAN_TS_MODE mode);
+void CANFD_TimeStamp_Prescaler_Set(uint16_t ps);
 
 
 #endif // _DRV_CANFDSPI_API_H
